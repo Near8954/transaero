@@ -12,7 +12,10 @@ enum lexemeType {
 
 class Lexeme {
 public:
-    Lexeme();
+    Lexeme() = default;
+
+    Lexeme(std::string name, lexemeType type) : _type(type), _name(std::move(name)) {
+    };
 
     lexemeType getType() const;
 

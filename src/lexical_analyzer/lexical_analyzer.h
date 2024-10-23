@@ -7,7 +7,7 @@
 
 #include <string>
 #include <vector>
-#include "lexeme.h"
+#include "../lexeme/lexeme.h"
 
 class Lexical_analyzer {
 public:

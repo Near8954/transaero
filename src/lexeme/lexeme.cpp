@@ -4,10 +4,6 @@
 
 #include "lexeme.h"
 
-Lexeme::Lexeme() {
-
-}
-
 lexemeType Lexeme::getType() const {
     return _type;
 }
