@@ -2,9 +2,9 @@
 // Created by near on 22.10.24.
 //
 
-#ifndef LEXEMES_H
-#define LEXEMES_H
-
+#pragma once
+#include <cctype>
+#include <clocale>
 #include <string>
 #include <vector>
 #include "../lexeme/lexeme.h"
@@ -13,8 +13,8 @@ class Lexical_analyzer {
 public:
     Lexical_analyzer();
 
-    std::vector<Lexeme> get_lexemes(char *text);
+    std::vector<Lexeme> get_lexemes(const char *text);
+
+    friend bool is_reserved(std::string &a);
 };
 
-
-#endif //LEXEMES_H
