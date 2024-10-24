@@ -4,16 +4,17 @@
 
 int main() {
 
+    std::ifstream code("../src/code.txt");
+    code.seekg(0, std::ios::end);
+    const size_t size = code.tellg();
+    code.seekg(0, std::ios::beg);
+    const auto text = new char[size];
+    code.read(text, size);
 
 
-    const char *text = "int gcd(int ABCd, int b) { int __r123 & !=b; {} ~ for (; b!= 0; r = a % b, a = b, b = r);return a;}";
-
-
-
-
-    Lexical_analyzer a;
-    auto b = a.get_lexemes(text);
-    for (int i = 0; i < b.size(); ++i) {
-        std::cout << b[i] << "\n";
+    Lexical_analyzer analyzer;
+    auto b = analyzer.get_lexemes(text, size);
+    for (const auto & i : b) {
+        std::cout << i << "\n";
     }
 }

@@ -1,0 +1,1 @@
+int gcd(int ABCd, int b) { int __r123 & !=b; {} ~ for (; b!= 0; r = a % b, a = b, b = r);return a;}

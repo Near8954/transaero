@@ -6,23 +6,19 @@
 
 Lexical_analyzer::Lexical_analyzer() = default;
 
-bool is_reserved(std::string &a) {
-
-    // здесь должен быть бор
-
-
-    return false;
+bool is_reserved(const std::string &a, const Trie &tr) {
+    return tr.search(a);
 }
 
 
-void new_lex(std::vector<Lexeme>& ans, std::string& lex, int& conditional) {
+void new_lex(std::vector<Lexeme> &ans, std::string &lex, int &conditional, const Trie &tr) {
     if (!lex.empty()) {
         if (lex == "-") {
             if (static_cast<Lexeme>(ans.back()) == Lexeme("-", binaryMinus)
                 || static_cast<Lexeme>(ans.back()) == Lexeme("-", unaryMinus)) {
                 ans.back() = Lexeme("--", decrement);
-            }  else if (static_cast<Lexeme>(ans.back()) == Lexeme("", literal)
-                        || static_cast<Lexeme>(ans.back()) == Lexeme("", identifier)) {
+            } else if (static_cast<Lexeme>(ans.back()) == Lexeme("", literal)
+                       || static_cast<Lexeme>(ans.back()) == Lexeme("", identifier)) {
                 ans.emplace_back("-", binaryMinus);
             } else {
                 ans.emplace_back("-", unaryMinus);
@@ -73,9 +69,8 @@ void new_lex(std::vector<Lexeme>& ans, std::string& lex, int& conditional) {
             } else {
                 ans.emplace_back("|", other);
             }
-        }
-        else if (lex == ";") {
-                ans.emplace_back(";", semicolon);
+        } else if (lex == ";") {
+            ans.emplace_back(";", semicolon);
         } else if (lex == "+") {
             if (static_cast<Lexeme>(ans.back()) == Lexeme("+", binaryPlus)
                 || static_cast<Lexeme>(ans.back()) == Lexeme("+", unaryPlus)) {
@@ -95,7 +90,7 @@ void new_lex(std::vector<Lexeme>& ans, std::string& lex, int& conditional) {
             }
         } else if (lex == "/") {
             ans.emplace_back("/", division);
-        } else if (is_reserved(lex) && conditional == 1) {
+        } else if (is_reserved(lex, tr) && conditional == 1) {
             ans.emplace_back(lex, reservedWord);
         } else if (conditional == 1) {
             ans.emplace_back(lex, identifier);
@@ -107,16 +102,22 @@ void new_lex(std::vector<Lexeme>& ans, std::string& lex, int& conditional) {
     }
 }
 
-std::vector<Lexeme> Lexical_analyzer::get_lexemes(const char *text) {
+std::vector<Lexeme> Lexical_analyzer::get_lexemes(const char *text, size_t length) {
     std::vector<Lexeme> ans;
     int conditional = 0;
     char symbol;
     std::string lex;
+    Trie tr;
+    std::ifstream fin("../src/reserved_words.txt");
+    while (std::getline(fin, lex)) {
+        tr.insert(lex);
+    }
     // 0 - default
     // 1- сейчас буква
     // 2 - сейчас символ
+    lex.clear();
 
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < length; ++i) {
         symbol = text[i];
 
         if (conditional == 0) {
@@ -125,29 +126,29 @@ std::vector<Lexeme> Lexical_analyzer::get_lexemes(const char *text) {
                 lex.push_back(symbol);
                 continue;
             } else if (symbol == ' ' || symbol == '\n') {
-                new_lex(ans, lex, conditional);
+                new_lex(ans, lex, conditional, tr);
                 conditional = 0;
             } else {
                 lex.push_back(symbol);
-                new_lex(ans, lex, conditional);
+                new_lex(ans, lex, conditional, tr);
             }
         } else if (conditional == 1) {
             if (std::isalpha(symbol) || symbol == '_' || symbol >= '0' && symbol <= '9') {
                 lex.push_back(symbol);
                 continue;
             } else if (symbol == ' ' || symbol == '\n') {
-                new_lex(ans, lex, conditional);
+                new_lex(ans, lex, conditional, tr);
                 conditional = 0;
             } else {
                 std::string b;
                 b += symbol;
-                new_lex(ans, lex, conditional);
-                new_lex(ans, b, conditional);
+                new_lex(ans, lex, conditional, tr);
+                new_lex(ans, b, conditional, tr);
                 conditional = 0;
             }
         }
 
-        new_lex(ans, lex, conditional);
+        new_lex(ans, lex, conditional, tr);
     }
 
     return ans;
