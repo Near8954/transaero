@@ -10,8 +10,8 @@ void Trie::insert(const std::string &word) {
     for (auto &c: word) {
         if (node->children[c - 'a'] == nullptr) {
             node->children[c - 'a'] = new TrieNode();
-            node = node->children[c - 'a'];
         }
+        node = node->children[c - 'a'];
     }
     node->terminal = true;
 }

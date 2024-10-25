@@ -1,5 +1,10 @@
 int main() {
-    int a, b, c;
-    print(a+b, b+c, a+c); # asdasdadasd
-    ####asdasdasdsadasd
+    int a51, b, c;
+
+    print(a+b, b+c, a+c);
+
+    forif fi if for 45.56 .67; +++++ a=b=c++=d+=09
+
+
+    a123a__
 }

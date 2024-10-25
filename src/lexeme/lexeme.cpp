@@ -6,28 +6,27 @@
 #include <iostream>
 
 lexemeType Lexeme::getType() const {
-//    1 - служебное слово
-//    2 - идентификатор
-//    3 - литерал
-//    4 - .
-//    5 - ,
-//    6 - (
-//    7 - )
-//    8 - [
-//    9 - ]
-//    10 - {
-//    11 - }
-//    12 - ;
-//    13 - + (bin)
-//    14 - + (uno)
-//    15 - - (bin)
-//    16 - - (uno)
-//    17 - * (bin)
-//    18 - * (link)
-//    19 - /
-//    20 - increment
-//    21 - decrement
-
+    //    1 - служебное слово
+    //    2 - идентификатор
+    //    3 - литерал
+    //    4 - .
+    //    5 - ,
+    //    6 - (
+    //    7 - )
+    //    8 - [
+    //    9 - ]
+    //    10 - {
+    //    11 - }
+    //    12 - ;
+    //    13 - + (bin)
+    //    14 - + (uno)
+    //    15 - - (bin)
+    //    16 - - (uno)
+    //    17 - * (bin)
+    //    18 - * (link)
+    //    19 - /
+    //    20 - increment
+    //    21 - decrement
 
 
     return _type;
@@ -35,6 +34,10 @@ lexemeType Lexeme::getType() const {
 
 std::string Lexeme::getName() const {
     return _name;
+}
+
+int Lexeme::getPos() const {
+    return _pos;
 }
 
 
@@ -47,8 +50,8 @@ bool Lexeme::operator==(const Lexeme &other) const {
 //    return stream << static_cast<typename std::underlying_type<T>::type>(e);
 //}
 
-std::ostream& operator<<(std::ostream &os, const Lexeme& lex) {
+std::ostream &operator<<(std::ostream &os, const Lexeme &lex) {
     os << lex.getName() << " ";
-    os << lex.getType();
+    os << "type: " << lex.getType() << " " << "pos: " << lex.getPos();
     return os;
 }

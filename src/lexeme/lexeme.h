@@ -37,22 +37,27 @@ class Lexeme {
 public:
     Lexeme() = default;
 
-    Lexeme(std::string name, lexemeType type) :
-            _type(type),
-            _name(std::move(name)) {};
+    Lexeme(std::string name, lexemeType type) : _type(type),
+                                                _name(std::move(name)) {
+    };
 
     lexemeType getType() const;
 
     std::string getName() const;
 
+    int getPos() const;
+
     bool operator==(const Lexeme &other) const;
 
-
+    void set_pos(const int pos) {
+        _pos = pos;
+    }
 
 private:
     lexemeType _type;
     std::string _name;
+    int _pos;
 };
 
-std::ostream &operator<<(std::ostream &os, const Lexeme& lex);
+std::ostream &operator<<(std::ostream &os, const Lexeme &lex);
 #endif //LEXEME_H
