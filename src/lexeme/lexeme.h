@@ -9,6 +9,7 @@
 enum lexemeType {
     reservedWord,
     literal,
+    string,
     openingRoundBracket,
     closingRoundBracket,
     openingSquareBracket,
