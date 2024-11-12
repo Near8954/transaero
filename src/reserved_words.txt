@@ -20,3 +20,4 @@ or
 not
 case
 print
+main

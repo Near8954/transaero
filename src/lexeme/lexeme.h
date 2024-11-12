@@ -21,7 +21,6 @@ enum lexemeType {
     binaryMinus,
     unaryMinus,
     binaryMultiplication,
-    linkMultiplication,
     division,
     identifier,
     dot,
