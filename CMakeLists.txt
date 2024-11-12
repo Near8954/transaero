@@ -17,5 +17,4 @@ add_executable(trans
     main.cpp
         src/syntax_analyzer/syntax_analyzer.cpp
         src/syntax_analyzer/syntax_analyzer.h
-        src/starter/Starter.cpp
-        src/starter/Starter.h)
+        )
