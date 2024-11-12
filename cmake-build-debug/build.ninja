@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /Users/ker1l/CLionProjects/trans/cmake-build-debug/
+cmake_ninja_workdir = /Users/roma/CLionProjects/trans/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target trans
 
@@ -49,35 +49,47 @@ cmake_ninja_workdir = /Users/ker1l/CLionProjects/trans/cmake-build-debug/
 
 build cmake_object_order_depends_target_trans: phony || .
 
-build CMakeFiles/trans.dir/src/lexeme/lexeme.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/ker1l/CLionProjects/trans/src/lexeme/lexeme.cpp || cmake_object_order_depends_target_trans
+build CMakeFiles/trans.dir/src/lexeme/lexeme.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/roma/CLionProjects/trans/src/lexeme/lexeme.cpp || cmake_object_order_depends_target_trans
   DEP_FILE = CMakeFiles/trans.dir/src/lexeme/lexeme.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/ker1l/CLionProjects/trans/src/lexeme -I/Users/ker1l/CLionProjects/trans/src/lexical_analyzer -I/Users/ker1l/CLionProjects/trans/src/trie
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/roma/CLionProjects/trans/src/lexeme -I/Users/roma/CLionProjects/trans/src/lexical_analyzer -I/Users/roma/CLionProjects/trans/src/trie
   OBJECT_DIR = CMakeFiles/trans.dir
   OBJECT_FILE_DIR = CMakeFiles/trans.dir/src/lexeme
 
-build CMakeFiles/trans.dir/src/lexical_analyzer/lexical_analyzer.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/ker1l/CLionProjects/trans/src/lexical_analyzer/lexical_analyzer.cpp || cmake_object_order_depends_target_trans
+build CMakeFiles/trans.dir/src/lexical_analyzer/lexical_analyzer.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/roma/CLionProjects/trans/src/lexical_analyzer/lexical_analyzer.cpp || cmake_object_order_depends_target_trans
   DEP_FILE = CMakeFiles/trans.dir/src/lexical_analyzer/lexical_analyzer.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/ker1l/CLionProjects/trans/src/lexeme -I/Users/ker1l/CLionProjects/trans/src/lexical_analyzer -I/Users/ker1l/CLionProjects/trans/src/trie
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/roma/CLionProjects/trans/src/lexeme -I/Users/roma/CLionProjects/trans/src/lexical_analyzer -I/Users/roma/CLionProjects/trans/src/trie
   OBJECT_DIR = CMakeFiles/trans.dir
   OBJECT_FILE_DIR = CMakeFiles/trans.dir/src/lexical_analyzer
 
-build CMakeFiles/trans.dir/src/trie/Trie.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/ker1l/CLionProjects/trans/src/trie/Trie.cpp || cmake_object_order_depends_target_trans
+build CMakeFiles/trans.dir/src/trie/Trie.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/roma/CLionProjects/trans/src/trie/Trie.cpp || cmake_object_order_depends_target_trans
   DEP_FILE = CMakeFiles/trans.dir/src/trie/Trie.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/ker1l/CLionProjects/trans/src/lexeme -I/Users/ker1l/CLionProjects/trans/src/lexical_analyzer -I/Users/ker1l/CLionProjects/trans/src/trie
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/roma/CLionProjects/trans/src/lexeme -I/Users/roma/CLionProjects/trans/src/lexical_analyzer -I/Users/roma/CLionProjects/trans/src/trie
   OBJECT_DIR = CMakeFiles/trans.dir
   OBJECT_FILE_DIR = CMakeFiles/trans.dir/src/trie
-  TARGET_COMPILE_PDB = CMakeFiles/trans.dir/
-  TARGET_PDB = trans.pdb
 
-build CMakeFiles/trans.dir/main.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/ker1l/CLionProjects/trans/main.cpp || cmake_object_order_depends_target_trans
+build CMakeFiles/trans.dir/main.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/roma/CLionProjects/trans/main.cpp || cmake_object_order_depends_target_trans
   DEP_FILE = CMakeFiles/trans.dir/main.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/ker1l/CLionProjects/trans/src/lexeme -I/Users/ker1l/CLionProjects/trans/src/lexical_analyzer -I/Users/ker1l/CLionProjects/trans/src/trie
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/roma/CLionProjects/trans/src/lexeme -I/Users/roma/CLionProjects/trans/src/lexical_analyzer -I/Users/roma/CLionProjects/trans/src/trie
   OBJECT_DIR = CMakeFiles/trans.dir
   OBJECT_FILE_DIR = CMakeFiles/trans.dir
+
+build CMakeFiles/trans.dir/src/syntax_analyzer/syntax_analyzer.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/roma/CLionProjects/trans/src/syntax_analyzer/syntax_analyzer.cpp || cmake_object_order_depends_target_trans
+  DEP_FILE = CMakeFiles/trans.dir/src/syntax_analyzer/syntax_analyzer.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/roma/CLionProjects/trans/src/lexeme -I/Users/roma/CLionProjects/trans/src/lexical_analyzer -I/Users/roma/CLionProjects/trans/src/trie
+  OBJECT_DIR = CMakeFiles/trans.dir
+  OBJECT_FILE_DIR = CMakeFiles/trans.dir/src/syntax_analyzer
+
+build CMakeFiles/trans.dir/src/starter/Starter.cpp.o: CXX_COMPILER__trans_unscanned_Debug /Users/roma/CLionProjects/trans/src/starter/Starter.cpp || cmake_object_order_depends_target_trans
+  DEP_FILE = CMakeFiles/trans.dir/src/starter/Starter.cpp.o.d
+  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics
+  INCLUDES = -I/Users/roma/CLionProjects/trans/src/lexeme -I/Users/roma/CLionProjects/trans/src/lexical_analyzer -I/Users/roma/CLionProjects/trans/src/trie
+  OBJECT_DIR = CMakeFiles/trans.dir
+  OBJECT_FILE_DIR = CMakeFiles/trans.dir/src/starter
 
 
 # =============================================================================
@@ -87,8 +99,8 @@ build CMakeFiles/trans.dir/main.cpp.o: CXX_COMPILER__trans_unscanned_Debug /User
 #############################################
 # Link the executable trans
 
-build trans: CXX_EXECUTABLE_LINKER__trans_Debug CMakeFiles/trans.dir/src/lexeme/lexeme.cpp.o CMakeFiles/trans.dir/src/lexical_analyzer/lexical_analyzer.cpp.o CMakeFiles/trans.dir/src/trie/Trie.cpp.o CMakeFiles/trans.dir/main.cpp.o
-  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk
+build trans: CXX_EXECUTABLE_LINKER__trans_Debug CMakeFiles/trans.dir/src/lexeme/lexeme.cpp.o CMakeFiles/trans.dir/src/lexical_analyzer/lexical_analyzer.cpp.o CMakeFiles/trans.dir/src/trie/Trie.cpp.o CMakeFiles/trans.dir/main.cpp.o CMakeFiles/trans.dir/src/syntax_analyzer/syntax_analyzer.cpp.o CMakeFiles/trans.dir/src/starter/Starter.cpp.o
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk
   OBJECT_DIR = CMakeFiles/trans.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -100,7 +112,7 @@ build trans: CXX_EXECUTABLE_LINKER__trans_Debug CMakeFiles/trans.dir/src/lexeme/
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/ker1l/CLionProjects/trans/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /Users/roma/CLionProjects/trans/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -111,7 +123,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/ker1l/CLionProjects/trans/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/ker1l/CLionProjects/trans -B/Users/ker1l/CLionProjects/trans/cmake-build-debug
+  COMMAND = cd /Users/roma/CLionProjects/trans/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake --regenerate-during-build -S/Users/roma/CLionProjects/trans -B/Users/roma/CLionProjects/trans/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -127,7 +139,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /Users/ker1l/CLionProjects/trans/cmake-build-debug
+# Folder: /Users/roma/CLionProjects/trans/cmake-build-debug
 
 build all: phony trans
 
@@ -138,14 +150,14 @@ build all: phony trans
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Users/ker1l/CLionProjects/trans/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Users/roma/CLionProjects/trans/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Users/ker1l/CLionProjects/trans/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
+build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake /Users/roma/CLionProjects/trans/CMakeLists.txt CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
 
 
 #############################################

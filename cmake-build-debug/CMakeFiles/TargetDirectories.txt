@@ -1,3 +1,0 @@
-/Users/ker1l/CLionProjects/trans/cmake-build-debug/CMakeFiles/trans.dir
-/Users/ker1l/CLionProjects/trans/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/ker1l/CLionProjects/trans/cmake-build-debug/CMakeFiles/rebuild_cache.dir

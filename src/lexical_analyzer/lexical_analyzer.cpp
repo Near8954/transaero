@@ -10,7 +10,22 @@ bool is_reserved(const std::string &a, const Trie &tr) {
     return tr.search(a);
 }
 
-std::vector<Lexeme> Lexical_analyzer::get_lexemes(const char *text, size_t length) {
+void Lexical_analyzer::get_lexemes() {
+    std::ifstream code("../src/code.txt");
+    code.seekg(0, std::ios::end);
+    size_t size = code.tellg();
+    code.seekg(0, std::ios::beg);
+    const auto text = new char[size];
+    code.read(text, size);
+    removeBetweenHashes(text);
+    auto it = text;
+    size_t i = 0;
+    while (*it != '\0') {
+        ++it;
+        ++i;
+    }
+    size = i;
+    int length = size;
     std::vector<Lexeme> ans;
     int conditional = 0;
     std::string lex;
@@ -448,5 +463,10 @@ std::vector<Lexeme> Lexical_analyzer::get_lexemes(const char *text, size_t lengt
             }
         }
     }
-    return ans;
+    lexemes_ = ans;
+}
+
+
+Lexeme Lexical_analyzer::get_lexeme() {
+    return lexemes_[curr_lex_++];
 }

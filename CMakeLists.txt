@@ -14,4 +14,8 @@ add_executable(trans
     src/lexical_analyzer/lexical_analyzer.h
     src/trie/Trie.cpp
     src/trie/Trie.h
-    main.cpp)
+    main.cpp
+        src/syntax_analyzer/syntax_analyzer.cpp
+        src/syntax_analyzer/syntax_analyzer.h
+        src/starter/Starter.cpp
+        src/starter/Starter.h)
