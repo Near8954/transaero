@@ -5,50 +5,86 @@
 
 Syntax_analyzer::Syntax_analyzer() {
     analyzer_.get_lexemes();
+    get_lex();
+}
+
+bool isType(Lexeme lex) {
+    std::string name = lex.getName();
+    if (name == "int" || name == "float" || name == "array" || name == "bool" || name == "float" || name == "char" ||
+        name == "void") {
+        return true;
+    }
+    return false;
+}
+
+void Syntax_analyzer::get_lex() {
     lex_ = analyzer_.get_lexeme();
 }
 
 inline void Syntax_analyzer::program() {
-
-
     if (lex_.getName() == "main") {
-        lex_ = analyzer_.get_lexeme();
+        get_lex();
         main();
     }
-
 }
 
 inline void Syntax_analyzer::global_definition() {
-
 }
 
 inline void Syntax_analyzer::main() {
     if (lex_.getName() == "{") {
-        lex_ = analyzer_.get_lexeme();
+        get_lex();
         block();
-
+        get_lex();
+        if (lex_.getName() != "{") {
+            throw lex_;
+        }
     } else {
         throw lex_;
     }
-
 }
 
 inline void Syntax_analyzer::function_definition() {
+    get_lex();
+    type();
+    get_lex();
+    func_name();
+    get_lex();
+    if (lex_.getName() != "(") {
+        throw lex_;
+    }
+    get_lex();
+    parameter_list();
+    get_lex();
+    if (lex_.getName() != ")") {
+        throw lex_;
+    }
+    get_lex();
+    if (lex_.getName() != "{") {
+        throw lex_;
+    }
+    get_lex();
+    block();
+    get_lex();
+    if (lex_.getName() != "}") {
+        throw lex_;
+    }
 }
 
 inline void Syntax_analyzer::type() {
+    if (!isType(lex_)) {
+        throw lex_;
+    }
 }
 
 inline void Syntax_analyzer::func_name() {
+    name();
 }
 
 inline void Syntax_analyzer::name() {
-}
-
-inline void Syntax_analyzer::letter() {
-}
-
-inline void Syntax_analyzer::digit() {
+    if (lex_.getType() != identifier) {
+        throw lex_;
+    }
 }
 
 inline void Syntax_analyzer::parameter_list() {
