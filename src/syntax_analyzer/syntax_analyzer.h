@@ -61,6 +61,8 @@ private:
 
     void simple_expression();
 
+    void comma_expression();
+
     void logical_or_expression();
 
     void logical_and_expression();
