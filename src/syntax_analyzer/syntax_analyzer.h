@@ -35,9 +35,7 @@ private:
 
     void name();
 
-    void letter();
-
-    void digit();
+    void ass_func();
 
     void parameter_list();
 
@@ -93,11 +91,15 @@ private:
 
     void argument_list();
 
-    void loop_operator();
+    void while_operator();
+
+    void for_operator();
 
     void initialization();
 
-    void conditional_statement();
+    void if_conditional_statement();
+
+    void switch_conditional_statement();
 
     void case_block();
 

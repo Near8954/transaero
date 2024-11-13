@@ -88,21 +88,96 @@ inline void Syntax_analyzer::name() {
 }
 
 inline void Syntax_analyzer::parameter_list() {
+    parameter();
+    get_lex();
+    while (lex_.getName() == ",") {
+        get_lex();
+        parameter();
+        get_lex();
+    }
 }
 
 inline void Syntax_analyzer::parameter() {
+    if (lex_.getName() != "empty") {
+        type();
+        get_lex();
+        name();
+        get_lex();
+    }
 }
 
 inline void Syntax_analyzer::block() {
+    expression_list();
 }
 
 inline void Syntax_analyzer::expression_list() {
+    expression();
+    get_lex();
+    while (lex_.getName() == ";") {
+        get_lex();
+        expression();
+        get_lex();
+    }
 }
 
 inline void Syntax_analyzer::expression() {
+    if (lex_.getType() == identifier) {
+        get_lex();
+        ass_func();
+    } else if (lex_.getName() == "print") {
+        get_lex();
+        output_operator();
+    } else if (lex_.getName() == "return") {
+        get_lex();
+        expression();
+    } else if (lex_.getName() == "while") {
+        get_lex();
+        while_operator();
+    } else if (lex_.getName() == "for") {
+        get_lex();
+        for_operator();
+    } else if (lex_.getName() == "switch") {
+        get_lex();
+        switch_conditional_statement();
+    } else if (lex_.getName() == "if") {
+        get_lex();
+        if_conditional_statement();
+    }
+}
+
+inline void Syntax_analyzer::ass_func() {
+    if (lex_.getName() == "(") {
+        get_lex();
+        argument_list();
+        get_lex();
+        if (lex_.getName() != ")") {
+            throw lex_;
+        }
+    } else {
+        assignment_operator();
+        get_lex();
+        expression();
+    }
 }
 
 inline void Syntax_analyzer::output_operator() {
+    if (lex_.getName() != "(") {
+        throw lex_;
+    }
+    element_list();
+    get_lex();
+    if (lex_.getName() != ")") {
+        throw lex_;
+    }
+}
+
+
+void while_operator() {
+
+}
+
+void for_operator() {
+
 }
 
 inline void Syntax_analyzer::element_list() {
@@ -174,7 +249,10 @@ inline void Syntax_analyzer::loop_operator() {
 inline void Syntax_analyzer::initialization() {
 }
 
-inline void Syntax_analyzer::conditional_statement() {
+inline void Syntax_analyzer::if_conditional_statement() {
+}
+
+inline void Syntax_analyzer::switch_conditional_statement() {
 }
 
 inline void Syntax_analyzer::case_block() {
