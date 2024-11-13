@@ -264,34 +264,101 @@ inline void Syntax_analyzer::special_expression() {
 }
 
 inline void Syntax_analyzer::literal() {
-    if (lex_.getName() == "\"") {
-
+    if (lex_.getType() != lexemeType::literal) {
+        throw lex_;
     }
 }
 
-inline void Syntax_analyzer::string_literal() {
-}
-
-inline void Syntax_analyzer::character() {
-}
-
-inline void Syntax_analyzer::special_character() {
-}
-
-inline void Syntax_analyzer::number_literal() {
-}
 
 inline void Syntax_analyzer::argument_list() {
+
 }
 
 inline void Syntax_analyzer::initialization() {
 }
 
 inline void Syntax_analyzer::if_conditional_statement() {
+    if (lex_.getName() != "(") {
+        throw lex_;
+    }
+    get_lex();
+    expression();
+    get_lex();
+    if (lex_.getName() != ")") {
+        throw lex_;
+    }
+    get_lex();
+    if (lex_.getName() != "{") {
+        throw lex_;
+    }
+    get_lex();
+    block();
+    get_lex();
+    if (lex_.getName() != "}") {
+        throw lex_;
+    }
 }
 
 inline void Syntax_analyzer::switch_conditional_statement() {
 }
 
 inline void Syntax_analyzer::case_block() {
+
+}
+
+inline void Syntax_analyzer::for_operator() {
+    if (lex_.getName() != "(") {
+        throw lex_;
+    }
+    get_lex();
+    expression();
+    get_lex();
+    if (lex_.getName() != ";") {
+        throw lex_;
+    }
+    get_lex();
+    expression();
+    get_lex();
+    if (lex_.getName() != ";") {
+        throw lex_;
+    }
+    get_lex();
+    expression();
+    get_lex();
+    if (lex_.getName() != ")") {
+        throw lex_;
+    }
+    get_lex();
+    if (lex_.getName() != "{") {
+        throw lex_;
+    }
+    get_lex();
+    block();
+    get_lex();
+    if (lex_.getName() != "}") {
+        throw lex_;
+    }
+}
+
+inline void Syntax_analyzer::simple_expression() {
+    logical_or_expression();
+}
+
+inline void Syntax_analyzer::logical_or_expression() {
+    logical_and_expression();
+    get_lex();
+    while (lex_.getName() == "or") {
+        get_lex();
+        logical_and_expression();
+        get_lex();
+    }
+}
+
+inline void Syntax_analyzer::element_list() {
+    literal();
+    while (peek().getName() == ",") {
+        get_lex();
+        get_lex();
+        literal();
+    }
 }

@@ -81,14 +81,6 @@ private:
 
     void literal();
 
-    void string_literal();
-
-    void character();
-
-    void special_character();
-
-    void number_literal();
-
     void function_call();
 
     void argument_list();
