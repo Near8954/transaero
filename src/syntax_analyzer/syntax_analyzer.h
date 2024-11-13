@@ -51,8 +51,6 @@ private:
 
     void element_list();
 
-    void assignment();
-
     void assignment_operator();
 
     void relation_operations();
@@ -77,7 +75,7 @@ private:
 
     void special_expression();
 
-    void lexeme();
+    void literal();
 
     void string_literal();
 
@@ -86,8 +84,6 @@ private:
     void special_character();
 
     void number_literal();
-
-    void function_call();
 
     void argument_list();
 
