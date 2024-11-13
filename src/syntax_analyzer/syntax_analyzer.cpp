@@ -10,12 +10,27 @@ Syntax_analyzer::Syntax_analyzer() {
 
 inline void Syntax_analyzer::program() {
 
+
+    if (lex_.getName() == "main") {
+        lex_ = analyzer_.get_lexeme();
+        main();
+    }
+
 }
 
 inline void Syntax_analyzer::global_definition() {
+
 }
 
 inline void Syntax_analyzer::main() {
+    if (lex_.getName() == "{") {
+        lex_ = analyzer_.get_lexeme();
+        block();
+
+    } else {
+        throw lex_;
+    }
+
 }
 
 inline void Syntax_analyzer::function_definition() {
