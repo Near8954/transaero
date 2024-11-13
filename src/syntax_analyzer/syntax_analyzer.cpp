@@ -163,6 +163,7 @@ inline void Syntax_analyzer::ass_func() {
         get_lex();
         expression();
     }
+
 }
 
 inline void Syntax_analyzer::output_operator() {
