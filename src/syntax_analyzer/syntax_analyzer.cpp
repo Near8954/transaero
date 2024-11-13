@@ -35,6 +35,7 @@ void Syntax_analyzer::program() {
 }
 
 void Syntax_analyzer::global_definition() {
+
 }
 
 void Syntax_analyzer::main() {
@@ -42,7 +43,7 @@ void Syntax_analyzer::main() {
         get_lex();
         block();
         get_lex();
-        if (lex_.getName() != "{") {
+        if (lex_.getName() != "}") {
             throw lex_;
         }
     } else {
@@ -116,36 +117,53 @@ void Syntax_analyzer::block() {
 }
 
 void Syntax_analyzer::expression_list() {
-    expression();
+
+    if (peek().getType() == identifier) {
+        get_lex();
+        expression();
+    } else {
+        expression_operator();
+    }
     while (peek().getName() == ";") {
         get_lex();
         get_lex();
-        expression();
+        if (peek().getType() == identifier) {
+            get_lex();
+            expression();
+        } else {
+            expression_operator();
+        }
     }
 }
 
 void Syntax_analyzer::expression() {
     if (lex_.getType() == identifier) {
+        if (peek().getName() == "(") {
+            get_lex();
+            get_lex();
+            function_call();
+            get_lex();
+            if (lex_.getName() != ")") {
+                throw lex_;
+            }
+        } else if (peek().getName() == "[") {
+            get_lex();
+            get_lex();
+            array_access();
+        } else {
+//            get_lex();
+            name();
+        }
         get_lex();
         ass_func();
-    } else if (lex_.getName() == "print") {
+    } else if (lex_.getName() == "(") {
         get_lex();
-        output_operator();
-    } else if (lex_.getName() == "return") {
         get_lex();
         expression();
-    } else if (lex_.getName() == "while") {
         get_lex();
-        while_operator();
-    } else if (lex_.getName() == "for") {
-        get_lex();
-        for_operator();
-    } else if (lex_.getName() == "switch") {
-        get_lex();
-        switch_conditional_statement();
-    } else if (lex_.getName() == "if") {
-        get_lex();
-        if_conditional_statement();
+        if (lex_.getName() != ")") {
+            throw lex_;
+        }
     }
 }
 
@@ -180,10 +198,20 @@ void Syntax_analyzer::while_operator() {
         throw lex_;
     }
     get_lex();
-    while (lex_.getName() == "or") {
-        get_lex();
-        logical_and_expression();
-        get_lex();
+    expression();
+    get_lex();
+    if (lex_.getName() != ")") {
+        throw lex_;
+    }
+    get_lex();
+    if (lex_.getName() != "{") {
+        throw lex_;
+    }
+    get_lex();
+    block();
+    get_lex();
+    if (lex_.getName() != "}") {
+        throw lex_;
     }
 }
 
@@ -321,9 +349,42 @@ void Syntax_analyzer::if_conditional_statement() {
     if (lex_.getName() != "}") {
         throw lex_;
     }
+
+    if (peek().getName() == "else") {
+        get_lex();
+        get_lex();
+        if (lex_.getName() != "{") {
+            throw lex_;
+        }
+        get_lex();
+        block();
+        get_lex();
+        if (lex_.getName() != "}") {
+            throw lex_;
+        }
+    }
 }
 
 void Syntax_analyzer::switch_conditional_statement() {
+    if (lex_.getName() != "(") {
+        throw lex_;
+    }
+    get_lex();
+    expression();
+    get_lex();
+    if (lex_.getName() != ")") {
+        throw lex_;
+    }
+    get_lex();
+    if (lex_.getName() != "{") {
+        throw lex_;
+    }
+    get_lex();
+    block();
+    get_lex();
+    if (lex_.getName() != "}") {
+        throw lex_;
+    }
 }
 
 void Syntax_analyzer::case_block() {
@@ -370,5 +431,40 @@ void Syntax_analyzer::element_list() {
         get_lex();
         get_lex();
         literal();
+    }
+}
+
+void Syntax_analyzer::expression_operator() {
+    if (lex_.getName() == "print") {
+        get_lex();
+        output_operator();
+
+    } else if (lex_.getName() == "return") {
+        get_lex();
+        expression();
+    } else if (lex_.getName() == "while") {
+        get_lex();
+        while_operator();
+    } else if (lex_.getName() == "for") {
+        get_lex();
+        for_operator();
+    } else if (lex_.getName() == "switch") {
+        get_lex();
+        switch_conditional_statement();
+    } else if (lex_.getName() == "if") {
+        get_lex();
+        if_conditional_statement();
+    }
+}
+
+void Syntax_analyzer::function_call() {
+    if (lex_.getName() != "(") {
+        throw lex_;
+    }
+    get_lex();
+    parameter_list();
+    get_lex();
+    if (lex_.getName() != ")") {
+        throw lex_;
     }
 }

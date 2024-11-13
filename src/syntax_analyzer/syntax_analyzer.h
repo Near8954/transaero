@@ -53,8 +53,6 @@ private:
 
     void element_list();
 
-    void assignment();
-
     void assignment_operator();
 
     void relation_operations();
@@ -98,6 +96,8 @@ private:
     void switch_conditional_statement();
 
     void case_block();
+
+    void expression_operator();
 
 };
 
