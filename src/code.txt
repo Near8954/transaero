@@ -1,13 +1,5 @@
-int main() {
-    int a51, b, c;
-
-    print(a+b, b+c, a+c);
-
-    5 + 7;
-
-     a += b+++c --= v;
-
-     "hui"+'c' -= z;
-
-    a123a__
+main {
+    int ac = 5;
+    return true;
+    for (int a; int b; int c) {sosal;}
 }

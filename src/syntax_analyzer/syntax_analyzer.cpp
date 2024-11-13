@@ -6,6 +6,7 @@
 Syntax_analyzer::Syntax_analyzer() {
     analyzer_.get_lexemes();
     get_lex();
+    program();
 }
 
 bool isType(Lexeme lex) {
@@ -31,6 +32,8 @@ void Syntax_analyzer::program() {
     if (lex_.getName() == "main") {
         get_lex();
         main();
+    } else {
+        throw lex_;
     }
 }
 
@@ -134,6 +137,10 @@ void Syntax_analyzer::expression_list() {
             expression_operator();
         }
     }
+    get_lex();
+    if (lex_.getName() != ";") {
+        throw lex_;
+    }
 }
 
 void Syntax_analyzer::expression() {
@@ -164,6 +171,9 @@ void Syntax_analyzer::expression() {
         if (lex_.getName() != ")") {
             throw lex_;
         }
+    } else if (lex_.getType() == lexemeType::literal) {
+        get_lex();
+        simple_expression();
     }
 }
 
@@ -467,4 +477,12 @@ void Syntax_analyzer::function_call() {
     if (lex_.getName() != ")") {
         throw lex_;
     }
+}
+
+void Syntax_analyzer::relation_operations() {
+
+}
+
+void Syntax_analyzer::assignment_operator() {
+
 }

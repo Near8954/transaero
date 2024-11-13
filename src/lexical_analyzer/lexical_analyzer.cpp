@@ -269,7 +269,8 @@ void Lexical_analyzer::get_lexemes() {
                 symbol == '/' ||
                 symbol == ';' ||
                 symbol == '=' ||
-                symbol == ',') {
+                symbol == ',' ||
+                symbol == '\n') {
                 conditional = 0;
                 ans.emplace_back(lex, literal);
                 lex.clear();
@@ -296,6 +297,9 @@ void Lexical_analyzer::get_lexemes() {
             } else {
                 conditional = 0;
                 ans.emplace_back(lex, literal);
+//                if (lex == "5") {
+//                    lex;
+//                }
                 ans.emplace_back("" + symbol, other);
                 lex.clear();
             }
