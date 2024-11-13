@@ -243,9 +243,6 @@ inline void Syntax_analyzer::function_call() {
 inline void Syntax_analyzer::argument_list() {
 }
 
-inline void Syntax_analyzer::loop_operator() {
-}
-
 inline void Syntax_analyzer::initialization() {
 }
 
