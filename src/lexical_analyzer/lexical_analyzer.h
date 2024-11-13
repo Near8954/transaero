@@ -19,6 +19,8 @@ public:
 
     Lexeme get_lexeme();
 
+    Lexeme peek();
+
     friend bool is_reserved(std::string &a);
 
 private:

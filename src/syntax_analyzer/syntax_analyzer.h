@@ -19,6 +19,8 @@ private:
 
     int curr_lex = 0;
 
+    Lexeme peek();
+
     void get_lex();
 
     void program();
@@ -50,6 +52,8 @@ private:
     void output_operator();
 
     void element_list();
+
+    void assignment();
 
     void assignment_operator();
 
@@ -84,6 +88,8 @@ private:
     void special_character();
 
     void number_literal();
+
+    void function_call();
 
     void argument_list();
 

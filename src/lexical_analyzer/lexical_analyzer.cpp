@@ -470,3 +470,8 @@ void Lexical_analyzer::get_lexemes() {
 Lexeme Lexical_analyzer::get_lexeme() {
     return lexemes_[curr_lex_++];
 }
+
+Lexeme Lexical_analyzer::peek() {
+    return lexemes_[curr_lex_+ 1];
+}
+
