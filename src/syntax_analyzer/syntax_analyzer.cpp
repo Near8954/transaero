@@ -24,7 +24,6 @@ void Syntax_analyzer::get_lex() {
 
 Lexeme Syntax_analyzer::peek() {
     return analyzer_.get_lexeme();
-
 }
 
 
