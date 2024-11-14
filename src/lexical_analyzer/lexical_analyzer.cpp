@@ -295,13 +295,49 @@ void Lexical_analyzer::get_lexemes() {
             } else if (isdigit(symbol)) {
                 lex += symbol;
             } else {
-                conditional = 0;
-                ans.emplace_back(lex, literal);
-//                if (lex == "5") {
-//                    lex;
-//                }
-                ans.emplace_back("" + symbol, other);
-                lex.clear();
+                switch (symbol) {
+                    case '{':
+                        conditional = 0;
+                        ans.emplace_back(lex, literal);
+                        lex.clear();
+                        ans.emplace_back("{", openingCurlyBracket);
+                        continue;
+                    case '}':
+                        conditional = 0;
+                        ans.emplace_back(lex, literal);
+                        lex.clear();
+                        ans.emplace_back("}", closingCurlyBracket);
+                        continue;
+                    case '(':
+                        conditional = 0;
+                        ans.emplace_back(lex, literal);
+                        lex.clear();
+                        ans.emplace_back("(", openingRoundBracket);
+                        continue;
+                    case ')':
+                        conditional = 0;
+                        ans.emplace_back(lex, literal);
+                        lex.clear();
+                        ans.emplace_back(")", closingRoundBracket);
+                        continue;
+                    case '[':
+                        conditional = 0;
+                        ans.emplace_back(lex, literal);
+                        lex.clear();
+                        ans.emplace_back("[", openingSquareBracket);
+                        continue;
+                    case ']':
+                        conditional = 0;
+                        ans.emplace_back(lex, literal);
+                        lex.clear();
+                        ans.emplace_back("]", closingSquareBracket);
+                        continue;
+                    default:
+                        conditional = 0;
+                        ans.emplace_back(lex, literal);
+                        ans.emplace_back("" + symbol, other);
+                        lex.clear();
+                }
             }
         } else if (conditional == 3) {
             // float
@@ -476,6 +512,5 @@ Lexeme Lexical_analyzer::get_lexeme() {
 }
 
 Lexeme Lexical_analyzer::peek() {
-    return lexemes_[curr_lex_+ 1];
+    return lexemes_[curr_lex_];
 }
-

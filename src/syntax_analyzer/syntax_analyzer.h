@@ -6,7 +6,7 @@
 #define SYNTAX_ANALYZER_H
 #include <string>
 #include "../lexical_analyzer/lexical_analyzer.h"
-
+#include "iostream"
 class Syntax_analyzer {
 public:
     Syntax_analyzer();
@@ -98,6 +98,8 @@ private:
     void case_block();
 
     void expression_operator();
+
+    void all_operators();
 
 };
 

@@ -1,5 +1,5 @@
 main {
-    int ac = 5;
-    return true;
-    for (int a; int b; int c) {sosal;}
+    int ac = 34.56;
+    for (int a = 6; int b = 7; int c = 8) {sosal; hui;}
+
 }
