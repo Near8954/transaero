@@ -130,6 +130,10 @@ void Syntax_analyzer::expression_list() {
     while (peek().getName() != "}") {
         get_lex();
         all_operators();
+        get_lex();
+        if (lex_.getName() != ";") {
+            throw lex_;
+        }
     }
 }
 

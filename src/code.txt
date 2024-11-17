@@ -1,5 +1,5 @@
 main {
     int ac = 34.56;
     for (int a = 6; int b = 7; int c = 8) {sosal; hui;};
-    a[1233]
+    a[1233];
 }
