@@ -9,7 +9,7 @@ Syntax_analyzer::Syntax_analyzer() {
     program();
 }
 
-bool isType(Lexeme& lex) {
+bool isType(Lexeme &lex) {
     std::string name = lex.getName();
     if (name == "int" || name == "float" || name == "array" || name == "bool" || name == "float" || name == "char" ||
         name == "void") {
@@ -38,14 +38,12 @@ void Syntax_analyzer::program() {
 }
 
 void Syntax_analyzer::global_definition() {
-
 }
 
 void Syntax_analyzer::main() {
     if (lex_.getName() == "{") {
         get_lex();
         block();
-        get_lex();
         if (lex_.getName() != "}") {
             throw lex_;
         }
@@ -117,23 +115,21 @@ void Syntax_analyzer::parameter() {
 
 void Syntax_analyzer::block() {
     expression_list();
+    get_lex();
+    if (lex_.getName() != "}") {
+        throw lex_;
+    }
 }
 
 void Syntax_analyzer::expression_list() {
-    bool hui = false;
+    all_operators();
+    get_lex();
+    if (lex_.getName() != ";") {
+        throw lex_;
+    }
     while (peek().getName() != "}") {
-        if (hui) get_lex();
+        get_lex();
         all_operators();
-        if (peek().getName() == "," || peek().getName() == ";") {
-            get_lex();
-            hui = true;
-//            get_lex();
-//            if (peek().getName() != "}") {
-//                throw lex_;
-//            }
-        } else if (peek().getName() != "}") {
-            throw lex_;
-        }
     }
 }
 
@@ -161,7 +157,8 @@ void Syntax_analyzer::all_operators() {
     } else if (lex_.getName() == "continue") {
         get_lex();
     } else if (lex_.getName() == "empty") {
-
+    } else if (isType(lex_)) {
+        initialization();
     } else {
         expression();
     }
@@ -182,11 +179,11 @@ void Syntax_analyzer::expression() {
             get_lex();
             array_access();
         } else {
-//            get_lex();
+            //            get_lex();
             name();
         }
-//        get_lex();
-//        ass_func();
+        //        get_lex();
+        //        ass_func();
     } else if (lex_.getName() == "(") {
         get_lex();
         get_lex();
@@ -196,10 +193,10 @@ void Syntax_analyzer::expression() {
             throw lex_;
         }
     } else if (lex_.getType() == lexemeType::literal) {
-//        get_lex();
+        //        get_lex();
         simple_expression();
     } else if (isType(lex_)) {
-//        get_lex();
+        //        get_lex();
         initialization();
     }
 }
@@ -270,7 +267,7 @@ void Syntax_analyzer::comma_expression() {
 
 void Syntax_analyzer::logical_or_expression() {
     logical_and_expression();
-//    get_lex();
+    //    get_lex();
     while (peek().getName() == "or") {
         get_lex();
         logical_and_expression();
@@ -280,7 +277,7 @@ void Syntax_analyzer::logical_or_expression() {
 
 void Syntax_analyzer::logical_and_expression() {
     relational_expression();
-//    get_lex();
+    //    get_lex();
     while (peek().getName() == "and") {
         get_lex();
         relational_expression();
@@ -290,7 +287,7 @@ void Syntax_analyzer::logical_and_expression() {
 
 void Syntax_analyzer::relational_expression() {
     additive_expression();
-//    get_lex();
+    //    get_lex();
     while (peek().getName() == "==" || peek().getName() == "!=" || peek().getName() == "<" || peek().getName() == ">" ||
            peek().getName() == "<=" || peek().getName() == ">=") {
         get_lex();
@@ -301,7 +298,7 @@ void Syntax_analyzer::relational_expression() {
 
 void Syntax_analyzer::additive_expression() {
     multiplicative_expression();
-//    get_lex();
+    //    get_lex();
     while (peek().getName() == "+" || peek().getName() == "-") {
         get_lex();
         multiplicative_expression();
@@ -311,7 +308,7 @@ void Syntax_analyzer::additive_expression() {
 
 void Syntax_analyzer::multiplicative_expression() {
     unary_expression();
-//    get_lex();
+    //    get_lex();
     while (peek().getName() == "*" || peek().getName() == "/") {
         get_lex();
         unary_expression();
@@ -321,7 +318,7 @@ void Syntax_analyzer::multiplicative_expression() {
 
 void Syntax_analyzer::unary_expression() {
     primary_expression();
-//    get_lex();
+    //    get_lex();
     while (peek().getName() == "++" || peek().getName() == "--") {
         get_lex();
         primary_expression();
@@ -338,7 +335,7 @@ void Syntax_analyzer::primary_expression() {
             throw lex_;
         }
     } else if (lex_.getType() == identifier) {
-//        get_lex(); // need peek
+        //        get_lex(); // need peek
         if (peek().getName() == "[") {
             array_access();
         } else if (peek().getName() == "(") {
@@ -350,6 +347,11 @@ void Syntax_analyzer::primary_expression() {
 }
 
 void Syntax_analyzer::array_access() {
+    expression();
+    get_lex();
+    if (lex_.getName() != "]") {
+        throw lex_;
+    }
 }
 
 void Syntax_analyzer::special_expression() {
@@ -363,7 +365,6 @@ void Syntax_analyzer::literal() {
 
 
 void Syntax_analyzer::argument_list() {
-
 }
 
 void Syntax_analyzer::initialization() {
@@ -476,7 +477,7 @@ void Syntax_analyzer::for_operator() {
     }
     get_lex();
     block();
-    get_lex();
+
     if (lex_.getName() != "}") {
         throw lex_;
     }
@@ -496,7 +497,6 @@ void Syntax_analyzer::expression_operator() {
     if (lex_.getName() == "print") {
         get_lex();
         output_operator();
-
     } else if (lex_.getName() == "return") {
         get_lex();
         expression();
@@ -528,9 +528,7 @@ void Syntax_analyzer::function_call() {
 }
 
 void Syntax_analyzer::relation_operations() {
-
 }
 
 void Syntax_analyzer::assignment_operator() {
-
 }

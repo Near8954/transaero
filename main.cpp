@@ -2,10 +2,10 @@
 #include "../syntax_analyzer/syntax_analyzer.h"
 
 int main() {
-    try {
+    // try {
         Syntax_analyzer a;
         std::cout << "OK";
-    } catch (Lexeme lex) {
-        std::cout << "Error " << lex.getName();
-    }
+//     } catch (Lexeme lex) {
+//         std::cout << "Error " << lex.getName();
+//     }
 }
