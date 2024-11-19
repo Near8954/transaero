@@ -1,13 +1,19 @@
-function int hui(int z) {empty;}
+#function int hui(int z) {empty;}
 
-function float zzz(empty) {int a = b;}
+function float zzz(empty) {int a = b;}#
 
 
 main {
-    if (a > 4) {
-        53;
-        81 - 45;
-    } else {
-        31;
+    switch (a) {
+        case ("zalupa") {
+            "potnie mydya";
+        }
+        case ("chlen") {
+            "nu i hueta";
+        }
+        case ("chlen") {
+                    "nu i hueta";
+        }
+        case ("yabloki") {a + b -c+d;}
     };
 }

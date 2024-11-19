@@ -306,6 +306,8 @@ void Syntax_analyzer::primary_expression() {
             get_lex();
             function_call();
         }
+    } else if (lex_.getType() == string) {
+//        get_lex();
     } else if (lex_.getType() != lexemeType::literal) {
         throw lex_;
     }
@@ -387,7 +389,37 @@ void Syntax_analyzer::switch_conditional_statement() {
         throw lex_;
     }
     get_lex();
-    expression();
+    if (lex_.getType() != identifier && lex_.getType() != lexemeType::literal) {
+        throw lex_;
+    }
+    get_lex();
+    if (lex_.getName() != ")") {
+        throw lex_;
+    }
+    get_lex();
+    if (lex_.getName() != "{") {
+        throw lex_;
+    }
+    get_lex();
+    if (lex_.getName() != "case") {
+        throw lex_;
+    }
+    get_lex();
+    case_block();
+    get_lex();
+    while (lex_.getName() == "case") {
+        get_lex();
+        case_block();
+        get_lex();
+    }
+}
+
+void Syntax_analyzer::case_block() {
+    if (lex_.getName() != "(") {
+        throw lex_;
+    }
+    get_lex();
+    simple_expression();
     get_lex();
     if (lex_.getName() != ")") {
         throw lex_;
@@ -398,9 +430,10 @@ void Syntax_analyzer::switch_conditional_statement() {
     }
     get_lex();
     block();
-}
-
-void Syntax_analyzer::case_block() {
+//    get_lex();
+//    if (lex_.getName() != "}") {
+//        throw lex_;
+//    }
 }
 
 void Syntax_analyzer::for_operator() {
