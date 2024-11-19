@@ -3,10 +3,10 @@
 
 int main() {
 //    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-     // try {
+     try {
         Syntax_analyzer a;
         std::cout << "OK";
-     // } catch (Lexeme lex) {
-     //     std::cout << "Error " << lex.getName();
-     // }
+     } catch (Lexeme lex) {
+         std::cout << "Error " << lex.getName() << " in string " << lex.getPos();
+     }
 }

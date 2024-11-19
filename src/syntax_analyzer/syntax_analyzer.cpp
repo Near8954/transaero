@@ -46,9 +46,6 @@ void Syntax_analyzer::main() {
     if (lex_.getName() == "{") {
         get_lex();
         block();
-        if (lex_.getName() != "}") {
-            throw lex_;
-        }
     } else {
         throw lex_;
     }
@@ -211,21 +208,26 @@ void Syntax_analyzer::while_operator() {
     }
     get_lex();
     block();
-    get_lex();
-    if (lex_.getName() != "}") {
-        throw lex_;
-    }
 }
 
 void Syntax_analyzer::simple_expression() {
-    logical_or_expression();
+    comma_expression();
 }
 
 
 void Syntax_analyzer::comma_expression() {
+    assignment_operator();
+    while (peek().getName() == ",") {
+        get_lex();
+        get_lex();
+        assignment_operator();
+    }
+}
+
+
+void Syntax_analyzer::assignment_operator() {
     logical_or_expression();
-    get_lex();
-    while (lex_.getName() == ",") {
+    while (peek().getName() == "=") {
         get_lex();
         get_lex();
         logical_or_expression();
@@ -298,6 +300,7 @@ void Syntax_analyzer::primary_expression() {
         }
     } else if (lex_.getType() == identifier) {
         if (peek().getName() == "[") {
+            get_lex();
             array_access();
         } else if (peek().getName() == "(") {
             get_lex();
@@ -309,6 +312,10 @@ void Syntax_analyzer::primary_expression() {
 }
 
 void Syntax_analyzer::array_access() {
+    if (lex_.getName() != "[") {
+        throw lex_;
+    }
+    get_lex();
     expression();
     get_lex();
     if (lex_.getName() != "]") {
@@ -363,10 +370,6 @@ void Syntax_analyzer::if_conditional_statement() {
     }
     get_lex();
     block();
-    get_lex();
-    if (lex_.getName() != "}") {
-        throw lex_;
-    }
 
     if (peek().getName() == "else") {
         get_lex();
@@ -376,10 +379,6 @@ void Syntax_analyzer::if_conditional_statement() {
         }
         get_lex();
         block();
-        get_lex();
-        if (lex_.getName() != "}") {
-            throw lex_;
-        }
     }
 }
 
@@ -399,10 +398,6 @@ void Syntax_analyzer::switch_conditional_statement() {
     }
     get_lex();
     block();
-    get_lex();
-    if (lex_.getName() != "}") {
-        throw lex_;
-    }
 }
 
 void Syntax_analyzer::case_block() {
@@ -437,9 +432,6 @@ void Syntax_analyzer::for_operator() {
     get_lex();
     block();
 
-    if (lex_.getName() != "}") {
-        throw lex_;
-    }
 }
 
 
@@ -497,10 +489,4 @@ void Syntax_analyzer::function_args() {
         }
         get_lex();
     }
-}
-
-void Syntax_analyzer::relation_operations() {
-}
-
-void Syntax_analyzer::assignment_operator() {
 }

@@ -4,16 +4,10 @@ function float zzz(empty) {int a = b;}
 
 
 main {
-   a >= b;
-
-    5.75 <= 7;
-
-    5 * 7 - 4.5 || 4 or 3 and 5;
-
-   for (int a = 6; int b = 7; int c = 8) {
-     sosal;
-     a(empty) + 4;
+    if (a > 4) {
+        53;
+        81 - 45;
+    } else {
+        31;
     };
-    a[1233];
-
 }
