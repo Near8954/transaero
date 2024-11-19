@@ -1,5 +1,19 @@
+function int hui(int z) {empty;}
+
+function float zzz(empty) {int a = b;}
+
+
 main {
-    int ac = 34.56;
-    for (int a = 6; int b = 7; int c = 8) {sosal; hui;};
+   a >= b;
+
+    5.75 <= 7;
+
+    5 * 7 - 4.5 || 4 or 3 and 5;
+
+   for (int a = 6; int b = 7; int c = 8) {
+     sosal;
+     a(empty);
+    };
     a[1233];
+
 }

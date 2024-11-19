@@ -25,15 +25,11 @@ private:
 
     void program();
 
-    void global_definition();
-
     void main();
 
     void function_definition();
 
     void type();
-
-    void func_name();
 
     void name();
 
@@ -82,6 +78,8 @@ private:
     void literal();
 
     void function_call();
+
+    void function_args();
 
     void argument_list();
 

@@ -89,6 +89,24 @@ void Lexical_analyzer::get_lexemes() {
                 lex += symbol;
             } else if (symbol == ',') {
                 ans.emplace_back(",", comma);
+            } else if (symbol == '>') {
+                ans.emplace_back(">", logicalOperations);
+            } else if (symbol == '|') {
+                if (ans.back().getName() == "|") {
+                    ans.back() = Lexeme("||", logicalOperations);
+                } else {
+                    ans.emplace_back("|", other);
+                }
+
+            } else if (symbol == '&') {
+                if (ans.back().getName() == "&") {
+                    ans.back() = Lexeme("&&", logicalOperations);
+                } else {
+                    ans.emplace_back("&", other);
+                }
+
+            }else if (symbol == '<') {
+                ans.emplace_back("<", logicalOperations);
             } else if (symbol == ' ' || symbol == '\n') {
                 continue;
             } else if (symbol == '=') {
@@ -108,6 +126,10 @@ void Lexical_analyzer::get_lexemes() {
                     ans.back() = Lexeme("==", logicalOperations);
                 } else if (ans.back().getName() == "!") {
                     ans.back() = Lexeme("!=", logicalOperations);
+                } else if (ans.back().getName() == "<") {
+                    ans.back() = Lexeme("<=", logicalOperations);
+                } else if (ans.back().getName() == ">") {
+                    ans.back() = Lexeme(">=", logicalOperations);
                 } else {
                     ans.emplace_back("=", assignmentOperators);
                 }
@@ -140,7 +162,11 @@ void Lexical_analyzer::get_lexemes() {
             // индентификатор
             if (symbol == ' ' ||
                 symbol == ';' ||
-                symbol == ',') {
+                symbol == ',' ||
+                symbol == '>' ||
+                symbol == '<' ||
+                symbol == '|' ||
+                symbol == '&') {
                 conditional = 0;
                 ans.emplace_back(lex, is_reserved(lex, tr) ? reservedWord : identifier);
                 lex.clear();
@@ -148,6 +174,14 @@ void Lexical_analyzer::get_lexemes() {
                     ans.emplace_back(";", semicolon);
                 } else if (symbol == ',') {
                     ans.emplace_back(",", comma);
+                } else if (symbol == '<') {
+                    ans.emplace_back("<", logicalOperations);
+                } else if (symbol == '>') {
+                    ans.emplace_back(">", logicalOperations);
+                } else if (symbol == '|') {
+                    ans.emplace_back("|", other);
+                } else if (symbol == '&') {
+                    ans.emplace_back("&", other);
                 }
             } else if (isalpha(symbol) || symbol == '_' || isdigit(symbol)) {
                 lex += symbol;
@@ -270,6 +304,8 @@ void Lexical_analyzer::get_lexemes() {
                 symbol == ';' ||
                 symbol == '=' ||
                 symbol == ',' ||
+                symbol == '|' ||
+                symbol == '&' ||
                 symbol == '\n') {
                 conditional = 0;
                 ans.emplace_back(lex, literal);
@@ -288,6 +324,10 @@ void Lexical_analyzer::get_lexemes() {
                     ans.emplace_back("=", assignmentOperators);
                 } else if (symbol == ',') {
                     ans.emplace_back(",", comma);
+                } else if (symbol == '|') {
+                    ans.emplace_back("|", other);
+                } else if (symbol == '&') {
+                    ans.emplace_back("&", other);
                 }
             } else if (symbol == '.') {
                 conditional = 3;
@@ -332,6 +372,18 @@ void Lexical_analyzer::get_lexemes() {
                         lex.clear();
                         ans.emplace_back("]", closingSquareBracket);
                         continue;
+                    case '>':
+                        conditional = 0;
+                        ans.emplace_back(lex, literal);
+                        lex.clear();
+                        ans.emplace_back(">", logicalOperations);
+                        continue;
+                    case '<':
+                        conditional = 0;
+                        ans.emplace_back(lex, literal);
+                        lex.clear();
+                        ans.emplace_back("<", logicalOperations);
+                        continue;
                     default:
                         conditional = 0;
                         ans.emplace_back(lex, literal);
@@ -348,7 +400,9 @@ void Lexical_analyzer::get_lexemes() {
                 symbol == '/' ||
                 symbol == ';' ||
                 symbol == '=' ||
-                symbol == ',') {
+                symbol == ',' ||
+                symbol == '>' ||
+                symbol == '<') {
                 conditional = 0;
                 ans.emplace_back(lex, literal);
                 lex.clear();
@@ -366,6 +420,10 @@ void Lexical_analyzer::get_lexemes() {
                     ans.emplace_back("=", assignmentOperators);
                 } else if (symbol == ',') {
                     ans.emplace_back(",", comma);
+                } else if (symbol == '<') {
+                    ans.emplace_back("<", logicalOperations);
+                } else if (symbol == '>') {
+                    ans.emplace_back(">", logicalOperations);
                 }
             } else if (isdigit(symbol)) {
                 lex += symbol;
@@ -496,6 +554,18 @@ void Lexical_analyzer::get_lexemes() {
                         ans.emplace_back(lex, other);
                         lex.clear();
                         ans.emplace_back("]", closingSquareBracket);
+                        continue;
+                    case '>':
+                        conditional = 0;
+                        ans.emplace_back(lex, other);
+                        lex.clear();
+                        ans.emplace_back(">", logicalOperations);
+                        continue;
+                    case '<':
+                        conditional = 0;
+                        ans.emplace_back(lex, other);
+                        lex.clear();
+                        ans.emplace_back("<", logicalOperations);
                         continue;
                     default:
                         lex += symbol;
