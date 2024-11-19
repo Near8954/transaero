@@ -5,6 +5,7 @@
 #ifndef LEXEME_H
 #define LEXEME_H
 #include <string>
+#include <utility>
 
 enum lexemeType {
     reservedWord,
@@ -39,6 +40,9 @@ public:
 
     Lexeme(std::string name, lexemeType type) : _type(type),
                                                 _name(std::move(name)) {
+    }
+
+    Lexeme(std::string name, lexemeType type, int pos) : _type(type), _name(std::move(name)), _pos(pos) {
     };
 
     lexemeType getType() const;

@@ -12,7 +12,7 @@ main {
 
    for (int a = 6; int b = 7; int c = 8) {
      sosal;
-     a(empty);
+     a(empty) + 4;
     };
     a[1233];
 

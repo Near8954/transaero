@@ -63,95 +63,94 @@ void Lexical_analyzer::get_lexemes() {
             } else if (symbol == '+') {
                 if (ans.back() == Lexeme("", literal)
                     || ans.back() == Lexeme("", identifier)) {
-                    ans.emplace_back("+", binaryPlus);
+                    ans.emplace_back("+", binaryPlus, cnt);
                 } else if (ans.back() == Lexeme("", binaryPlus)
                            || ans.back() == Lexeme("", unaryPlus)) {
-                    ans.back() = Lexeme("++", increment);
+                    ans.back() = Lexeme("++", increment, cnt);
                 } else {
-                    ans.emplace_back("+", unaryPlus);
+                    ans.emplace_back("+", unaryPlus, cnt);
                 }
             } else if (symbol == '-') {
                 if (ans.back() == Lexeme("", literal)
                     || ans.back() == Lexeme("", identifier)) {
-                    ans.emplace_back("-", binaryMinus);
+                    ans.emplace_back("-", binaryMinus, cnt);
                 } else if (ans.back() == Lexeme("", binaryMinus)
                            || ans.back() == Lexeme("", unaryMinus)) {
-                    ans.back() = Lexeme("--", decrement);
+                    ans.back() = Lexeme("--", decrement, cnt);
                 } else {
-                    ans.emplace_back("-", unaryMinus);
+                    ans.emplace_back("-", unaryMinus, cnt);
                 }
             } else if (symbol == '/') {
-                ans.emplace_back("/", division);
+                ans.emplace_back("/", division, cnt);
             } else if (symbol == '*') {
-                ans.emplace_back("*", binaryMultiplication);
+                ans.emplace_back("*", binaryMultiplication, cnt);
             } else if (symbol == '.') {
                 conditional = 6;
                 lex += symbol;
             } else if (symbol == ',') {
-                ans.emplace_back(",", comma);
+                ans.emplace_back(",", comma, cnt);
             } else if (symbol == '>') {
-                ans.emplace_back(">", logicalOperations);
+                ans.emplace_back(">", logicalOperations, cnt);
             } else if (symbol == '|') {
                 if (ans.back().getName() == "|") {
-                    ans.back() = Lexeme("||", logicalOperations);
+                    ans.back() = Lexeme("||", logicalOperations, cnt);
                 } else {
-                    ans.emplace_back("|", other);
+                    ans.emplace_back("|", other, cnt);
                 }
-
             } else if (symbol == '&') {
                 if (ans.back().getName() == "&") {
-                    ans.back() = Lexeme("&&", logicalOperations);
+                    ans.back() = Lexeme("&&", logicalOperations, cnt);
                 } else {
-                    ans.emplace_back("&", other);
+                    ans.emplace_back("&", other, cnt);
                 }
-
-            }else if (symbol == '<') {
-                ans.emplace_back("<", logicalOperations);
+            } else if (symbol == '<') {
+                ans.emplace_back("<", logicalOperations, cnt);
             } else if (symbol == ' ' || symbol == '\n') {
+                ++cnt;
                 continue;
             } else if (symbol == '=') {
                 if (ans.back() == Lexeme("", binaryMinus) ||
-                    ans.back() == Lexeme("", unaryMinus)) {
-                    ans.back() = Lexeme("-=", assignmentOperators);
+                    ans.back() == Lexeme("", unaryMinus, cnt)) {
+                    ans.back() = Lexeme("-=", assignmentOperators, cnt);
                 } else if (ans.back() == Lexeme("", binaryPlus) ||
                            ans.back() == Lexeme("", unaryPlus)) {
-                    ans.back() = Lexeme("+=", assignmentOperators);
+                    ans.back() = Lexeme("+=", assignmentOperators, cnt);
                 } else if (ans.back() == Lexeme("", division)) {
-                    ans.back() = Lexeme("/=", assignmentOperators);
+                    ans.back() = Lexeme("/=", assignmentOperators, cnt);
                 } else if (ans.back() == Lexeme("", binaryMultiplication)) {
-                    ans.back() = Lexeme("*=", assignmentOperators);
+                    ans.back() = Lexeme("*=", assignmentOperators, cnt);
                 } else if (ans.back() == Lexeme("", binaryMultiplication)) {
-                    ans.back() = Lexeme("*=", assignmentOperators);
+                    ans.back() = Lexeme("*=", assignmentOperators, cnt);
                 } else if (ans.back().getName() == "=") {
-                    ans.back() = Lexeme("==", logicalOperations);
+                    ans.back() = Lexeme("==", logicalOperations, cnt);
                 } else if (ans.back().getName() == "!") {
-                    ans.back() = Lexeme("!=", logicalOperations);
+                    ans.back() = Lexeme("!=", logicalOperations, cnt);
                 } else if (ans.back().getName() == "<") {
-                    ans.back() = Lexeme("<=", logicalOperations);
+                    ans.back() = Lexeme("<=", logicalOperations, cnt);
                 } else if (ans.back().getName() == ">") {
-                    ans.back() = Lexeme(">=", logicalOperations);
+                    ans.back() = Lexeme(">=", logicalOperations, cnt);
                 } else {
-                    ans.emplace_back("=", assignmentOperators);
+                    ans.emplace_back("=", assignmentOperators, cnt);
                 }
             } else {
                 switch (symbol) {
                     case '{':
-                        ans.emplace_back("{", openingCurlyBracket);
+                        ans.emplace_back("{", openingCurlyBracket, cnt);
                         continue;
                     case '}':
-                        ans.emplace_back("}", closingCurlyBracket);
+                        ans.emplace_back("}", closingCurlyBracket, cnt);
                         continue;
                     case '(':
-                        ans.emplace_back("(", openingRoundBracket);
+                        ans.emplace_back("(", openingRoundBracket, cnt);
                         continue;
                     case ')':
-                        ans.emplace_back(")", closingRoundBracket);
+                        ans.emplace_back(")", closingRoundBracket, cnt);
                         continue;
                     case '[':
-                        ans.emplace_back("[", openingSquareBracket);
+                        ans.emplace_back("[", openingSquareBracket, cnt);
                         continue;
                     case ']':
-                        ans.emplace_back("]", closingSquareBracket);
+                        ans.emplace_back("]", closingSquareBracket, cnt);
                         continue;
                     default:
                         conditional = 6;
@@ -168,39 +167,39 @@ void Lexical_analyzer::get_lexemes() {
                 symbol == '|' ||
                 symbol == '&') {
                 conditional = 0;
-                ans.emplace_back(lex, is_reserved(lex, tr) ? reservedWord : identifier);
+                ans.emplace_back(lex, is_reserved(lex, tr) ? reservedWord : identifier, cnt);
                 lex.clear();
                 if (symbol == ';') {
-                    ans.emplace_back(";", semicolon);
+                    ans.emplace_back(";", semicolon, cnt);
                 } else if (symbol == ',') {
-                    ans.emplace_back(",", comma);
+                    ans.emplace_back(",", comma, cnt);
                 } else if (symbol == '<') {
-                    ans.emplace_back("<", logicalOperations);
+                    ans.emplace_back("<", logicalOperations, cnt);
                 } else if (symbol == '>') {
-                    ans.emplace_back(">", logicalOperations);
+                    ans.emplace_back(">", logicalOperations, cnt);
                 } else if (symbol == '|') {
-                    ans.emplace_back("|", other);
+                    ans.emplace_back("|", other, cnt);
                 } else if (symbol == '&') {
-                    ans.emplace_back("&", other);
+                    ans.emplace_back("&", other, cnt);
                 }
             } else if (isalpha(symbol) || symbol == '_' || isdigit(symbol)) {
                 lex += symbol;
             } else if (symbol == '+') {
                 conditional = 0;
                 if (is_reserved(lex, tr)) {
-                    ans.emplace_back(lex, reservedWord);
+                    ans.emplace_back(lex, reservedWord, cnt);
                 } else {
-                    ans.emplace_back(lex, identifier);
+                    ans.emplace_back(lex, identifier, cnt);
                 }
                 lex.clear();
                 if (ans.back() == Lexeme("", literal)
                     || ans.back() == Lexeme("", identifier)) {
-                    ans.emplace_back("+", binaryPlus);
+                    ans.emplace_back("+", binaryPlus, cnt);
                 } else if (ans.back() == Lexeme("", binaryPlus)
                            || ans.back() == Lexeme("", unaryPlus)) {
-                    ans.back() = Lexeme("++", increment);
+                    ans.back() = Lexeme("++", increment, cnt);
                 } else {
-                    ans.emplace_back("+", unaryPlus);
+                    ans.emplace_back("+", unaryPlus, cnt);
                 }
             } else if (symbol == '-') {
                 conditional = 0;
