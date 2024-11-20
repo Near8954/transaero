@@ -5,10 +5,13 @@ int main() {
 //    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
      try {
         Syntax_analyzer a;
-        std::cout << "OK";
+        std::cout << "=========== OK! ===========\n\n";
      } catch (Lexeme lex) {
-         std::cout << lex.getType();
-         std::cout << "Error " << lex.getName() << " in string " << lex.getPos();
+
+         std::cerr << "Error " << lex.getName() << " in string " << lex.getPos() << "\n";
+         std::cerr << "Lexem type is " << lex.getType();
+
+
      }
 
 //     for (int i = 0; int z = 5; ++i)

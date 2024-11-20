@@ -1,9 +1,17 @@
-#function int hui(int z) {empty;}
-
-function float zzz(empty) {int a = b;}#
-
 
 main {
+
+
+    func(a, b, c);
+
+    print(s, v, o);
+
+    a = b + c;
+
+    array a[b];
+
+    array c[7];
+
     switch (a) {
         case ("zalupa") {
             "potnie mydya";

@@ -73,7 +73,6 @@ private:
 
     void array_access();
 
-    void special_expression();
 
     void literal();
 
@@ -94,8 +93,6 @@ private:
     void switch_conditional_statement();
 
     void case_block();
-
-    void expression_operator();
 
     void all_operators();
 
