@@ -13,6 +13,12 @@ int main() {
 
 
      }
+//
+//     int a;
+//     for (int i = 0; i < 5; ++i) {
+//         int a = 5;
+//         std::cout << a;
+//     }
 
-//     for (int i = 0; int z = 5; ++i)
+
 }

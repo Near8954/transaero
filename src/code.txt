@@ -6,13 +6,15 @@ main {
 
     print(s, v, o);
 
+
+
     a = b + c;
 
     array a[b];
 
     array c[7];
 
-    switch (a) {
+    switch (7) {
         case ("zalupa") {
             "potnie mydya";
         }
@@ -24,4 +26,5 @@ main {
         }
         case ("yabloki") {a + b -c+d;}
     };
+
 }

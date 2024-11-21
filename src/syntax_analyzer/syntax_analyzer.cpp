@@ -3,7 +3,69 @@
 //
 #include "syntax_analyzer.h"
 
+
+int cur_id = 0;
+
+struct scope {
+    std::string name_, type_;
+    int id_;
+
+    scope* up;
+    scope* down;
+
+    scope() {
+        name_ = type_ = "";
+        id_ = 0;
+        up = down = nullptr;
+    }
+
+    scope(int id, std::string& name, std::string &type) {
+        id_ = id;
+        name_ = name;
+        type_ = type;
+    }
+
+    void push_id(std::string& name, std::string &type);
+
+};
+
+scope* cur_scope;
+
+struct tid_tree {
+    scope* root;
+
+    void create_scope() {
+        auto sc = new scope();
+        cur_scope = sc;
+    }
+
+    void create_scope(int id, std::string& name, std::string &type) {
+        auto sc = new scope(id, name, type);
+        cur_scope = sc;
+    }
+
+    void exit_scope() {
+        cur_scope = cur_scope->up;
+    }
+
+    bool check_id(int id, scope* sc) {
+        if (sc->id_ == id) return true;
+        if (sc->up == nullptr) return false;
+        return check_id(id, sc->up);
+    }
+
+};
+
+void scope::push_id(std::string& name, std::string& type) {
+    cur_scope->id_ = cur_id++;
+    cur_scope->type_ = type;
+    cur_scope->name_ = name;
+}
+
+tid_tree* td;
+
 Syntax_analyzer::Syntax_analyzer() {
+    td = new tid_tree;
     analyzer_.get_lexemes();
     get_lex();
     program();
@@ -108,6 +170,9 @@ void Syntax_analyzer::parameter() {
 }
 
 void Syntax_analyzer::block() {
+
+
+
     expression_list();
     get_lex();
     if (lex_.getName() != "}") {
@@ -166,20 +231,6 @@ void Syntax_analyzer::expression() {
     simple_expression();
 }
 
-void Syntax_analyzer::ass_func() {
-    if (lex_.getName() == "(") {
-        get_lex();
-        argument_list();
-        get_lex();
-        if (lex_.getName() != ")") {
-            throw lex_;
-        }
-    } else {
-        assignment_operator();
-        get_lex();
-        expression();
-    }
-}
 
 void Syntax_analyzer::output_operator() {
     if (lex_.getName() != "(") {
@@ -332,10 +383,6 @@ void Syntax_analyzer::literal() {
     }
 }
 
-
-void Syntax_analyzer::argument_list() {
-}
-
 void Syntax_analyzer::initialization() {
     if (lex_.getType() == identifier) {
         get_lex();
@@ -451,10 +498,6 @@ void Syntax_analyzer::case_block() {
     }
     get_lex();
     block();
-//    get_lex();
-//    if (lex_.getName() != "}") {
-//        throw lex_;
-//    }
 }
 
 void Syntax_analyzer::for_operator() {
