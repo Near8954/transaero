@@ -6,26 +6,24 @@
 
 int cur_id = 0;
 
-struct scope {
+struct item {
     std::string name_, type_;
     int id_;
 
+
+
+    void push_id(std::string& name, std::string &type);
+
+};
+
+struct scope {
+    std::vector<item*> sc;
     scope* up;
     scope* down;
 
     scope() {
-        name_ = type_ = "";
-        id_ = 0;
         up = down = nullptr;
     }
-
-    scope(int id, std::string& name, std::string &type) {
-        id_ = id;
-        name_ = name;
-        type_ = type;
-    }
-
-    void push_id(std::string& name, std::string &type);
 
 };
 
@@ -40,27 +38,27 @@ struct tid_tree {
     }
 
     void create_scope(int id, std::string& name, std::string &type) {
-        auto sc = new scope(id, name, type);
-        cur_scope = sc;
+//        auto sc = new scope(id, name, type);
+//        cur_scope = sc;
     }
 
     void exit_scope() {
         cur_scope = cur_scope->up;
     }
 
-    bool check_id(int id, scope* sc) {
-        if (sc->id_ == id) return true;
-        if (sc->up == nullptr) return false;
-        return check_id(id, sc->up);
-    }
+//    bool check_id(int id, scope* sc) {
+//        if (sc->id_ == id) return true;
+//        if (sc->up == nullptr) return false;
+//        return check_id(id, sc->up);
+//    }
 
 };
 
-void scope::push_id(std::string& name, std::string& type) {
-    cur_scope->id_ = cur_id++;
-    cur_scope->type_ = type;
-    cur_scope->name_ = name;
-}
+//void scope::push_id(std::string& name, std::string& type) {
+//    cur_scope->id_ = cur_id++;
+//    cur_scope->type_ = type;
+//    cur_scope->name_ = name;
+//}
 
 tid_tree* td;
 
@@ -360,6 +358,9 @@ void Syntax_analyzer::primary_expression() {
         }
     } else if (lex_.getType() == string) {
 //        get_lex();
+    } else if (lex_.getName() == "true" ||
+              lex_.getName() == "false") {
+//        get_lex();
     } else if (lex_.getType() != lexemeType::literal) {
         throw lex_;
     }
@@ -402,7 +403,7 @@ void Syntax_analyzer::initialization() {
                 throw lex_;
             }
             get_lex();
-            if (lex_.getType() != identifier && lex_.getType() != lexemeType::literal) {
+            if (lex_.getType() != lexemeType::literal) {
                 throw lex_;
             }
             get_lex();
@@ -528,7 +529,6 @@ void Syntax_analyzer::for_operator() {
     }
     get_lex();
     block();
-
 }
 
 void Syntax_analyzer::function_call() {

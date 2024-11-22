@@ -1,6 +1,8 @@
 
 main {
 
+    bool s = 1;
+
 
     func(a, b, c);
 
@@ -10,21 +12,26 @@ main {
 
     a = b + c;
 
-    array a[b];
-
     array c[7];
 
     switch (7) {
-        case ("zalupa") {
-            "potnie mydya";
+        case ("abc") {
+            "expression";
         }
-        case ("chlen") {
-            "nu i hueta";
+        case (5) {
+            print(a, b);
         }
-        case ("chlen") {
-                    "nu i hueta";
+        case (3) {
+           return 2;
         }
-        case ("yabloki") {a + b -c+d;}
     };
+
+    true;
+
+
+
+
+    return true;
+    return false;
 
 }
