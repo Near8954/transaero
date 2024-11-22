@@ -60,7 +60,7 @@ struct tid_tree {
 //    cur_scope->name_ = name;
 //}
 
-tid_tree* td;
+tid_tree *td;
 
 Syntax_analyzer::Syntax_analyzer() {
     td = new tid_tree;
@@ -168,9 +168,6 @@ void Syntax_analyzer::parameter() {
 }
 
 void Syntax_analyzer::block() {
-
-
-
     expression_list();
     get_lex();
     if (lex_.getName() != "}") {
@@ -332,10 +329,10 @@ void Syntax_analyzer::multiplicative_expression() {
 }
 
 void Syntax_analyzer::unary_expression() {
-    primary_expression();
-    while (peek().getName() == "++" || peek().getName() == "--") {
+    if (lex_.getName() == "+" || lex_.getName() == "-" || lex_.getName() == "++" || lex_.getName() == "--") {
         get_lex();
-        get_lex();
+        primary_expression();
+    } else {
         primary_expression();
     }
 }
@@ -529,6 +526,7 @@ void Syntax_analyzer::for_operator() {
     }
     get_lex();
     block();
+
 }
 
 void Syntax_analyzer::function_call() {

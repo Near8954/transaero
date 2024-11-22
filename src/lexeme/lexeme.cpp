@@ -24,6 +24,6 @@ bool Lexeme::operator==(const Lexeme &other) const {
 
 std::ostream &operator<<(std::ostream &os, const Lexeme &lex) {
     os << lex.getName() << " ";
-    os << "type: " << lex.getType() << " " << "pos: " << lex.getPos();
+    os << "type: " << lex.getType() << " " << "pos: " << std::to_string(lex.getPos());
     return os;
 }

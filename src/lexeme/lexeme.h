@@ -1,7 +1,7 @@
 //
 // Created by near on 23.10.24.
 //
-
+#pragma once
 #ifndef LEXEME_H
 #define LEXEME_H
 #include <string>
@@ -33,6 +33,36 @@ enum lexemeType {
     assignmentOperators,
     other,
 };
+
+inline std::string to_string(lexemeType type) {
+    switch (type) {
+        case lexemeType::reservedWord: return "reservedWord";
+        case lexemeType::literal: return "literal";
+        case lexemeType::string: return "string";
+        case lexemeType::openingRoundBracket: return "openingRoundBracket";
+        case lexemeType::closingRoundBracket: return "closingRoundBracket";
+        case lexemeType::openingSquareBracket: return "openingSquareBracket";
+        case lexemeType::closingSquareBracket: return "closingSquareBracket";
+        case lexemeType::openingCurlyBracket: return "openingCurlyBracket";
+        case lexemeType::closingCurlyBracket: return "closingCurlyBracket";
+        case lexemeType::binaryPlus: return "binaryPlus";
+        case lexemeType::unaryPlus: return "unaryPlus";
+        case lexemeType::binaryMinus: return "binaryMinus";
+        case lexemeType::unaryMinus: return "unaryMinus";
+        case lexemeType::binaryMultiplication: return "binaryMultiplication";
+        case lexemeType::division: return "division";
+        case lexemeType::identifier: return "identifier";
+        case lexemeType::dot: return "dot";
+        case lexemeType::comma: return "comma";
+        case lexemeType::semicolon: return "semicolon";
+        case lexemeType::increment: return "increment";
+        case lexemeType::decrement: return "decrement";
+        case lexemeType::logicalOperations: return "logicalOperations";
+        case lexemeType::assignmentOperators: return "assignmentOperators";
+        case lexemeType::other: return "other";
+        default: return "Unknown";
+    }
+}
 
 class Lexeme {
 public:
