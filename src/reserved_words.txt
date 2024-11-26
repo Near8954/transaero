@@ -21,3 +21,4 @@ not
 case
 print
 main
+function

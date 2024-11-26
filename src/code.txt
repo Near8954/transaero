@@ -1,3 +1,6 @@
+function int a(int a, int b, int c) {empty;}
+function float b(empty) {empty;}
+
 
 main {
 

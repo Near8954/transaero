@@ -11,47 +11,43 @@ struct item {
     int id_;
 
 
-
-    void push_id(std::string& name, std::string &type);
-
+    void push_id(std::string &name, std::string &type);
 };
 
 struct scope {
-    std::vector<item*> sc;
-    scope* up;
-    scope* down;
+    std::vector<item *> sc;
+    scope *up;
+    scope *down;
 
     scope() {
         up = down = nullptr;
     }
-
 };
 
-scope* cur_scope;
+scope *cur_scope;
 
 struct tid_tree {
-    scope* root;
+    scope *root;
 
     void create_scope() {
         auto sc = new scope();
         cur_scope = sc;
     }
 
-    void create_scope(int id, std::string& name, std::string &type) {
-//        auto sc = new scope(id, name, type);
-//        cur_scope = sc;
+    void create_scope(int id, std::string &name, std::string &type) {
+        //        auto sc = new scope(id, name, type);
+        //        cur_scope = sc;
     }
 
     void exit_scope() {
         cur_scope = cur_scope->up;
     }
 
-//    bool check_id(int id, scope* sc) {
-//        if (sc->id_ == id) return true;
-//        if (sc->up == nullptr) return false;
-//        return check_id(id, sc->up);
-//    }
-
+    //    bool check_id(int id, scope* sc) {
+    //        if (sc->id_ == id) return true;
+    //        if (sc->up == nullptr) return false;
+    //        return check_id(id, sc->up);
+    //    }
 };
 
 //void scope::push_id(std::string& name, std::string& type) {
@@ -150,11 +146,13 @@ void Syntax_analyzer::name() {
 }
 
 void Syntax_analyzer::parameter_list() {
-    parameter();
-    while (peek().getName() == ",") {
-        get_lex();
-        get_lex();
+    if (lex_.getName() != "empty") {
         parameter();
+        while (peek().getName() == ",") {
+            get_lex();
+            get_lex();
+            parameter();
+        }
     }
 }
 
@@ -354,10 +352,10 @@ void Syntax_analyzer::primary_expression() {
             function_call();
         }
     } else if (lex_.getType() == string) {
-//        get_lex();
+        //        get_lex();
     } else if (lex_.getName() == "true" ||
-              lex_.getName() == "false") {
-//        get_lex();
+               lex_.getName() == "false") {
+        //        get_lex();
     } else if (lex_.getType() != lexemeType::literal) {
         throw lex_;
     }
@@ -526,7 +524,6 @@ void Syntax_analyzer::for_operator() {
     }
     get_lex();
     block();
-
 }
 
 void Syntax_analyzer::function_call() {
