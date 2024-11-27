@@ -19,12 +19,12 @@ void Lexical_analyzer::get_lexemes() {
     code.read(text, size);
     removeBetweenHashes(text);
     auto it = text;
-    size_t i = 0;
+    size_t sz = 0;
     while (*it != '\0') {
         ++it;
-        ++i;
+        ++sz;
     }
-    size = i;
+    size = sz;
     int length = size;
     std::vector<Lexeme> ans;
     int conditional = 0;
@@ -42,6 +42,8 @@ void Lexical_analyzer::get_lexemes() {
     // 4 - string
     // 5 - char
     // 6 - other
+    // 7 - ++
+    // 8 - --
     int cnt = 1;
 
     for (int i = 0; i < length; ++i) {
@@ -61,25 +63,11 @@ void Lexical_analyzer::get_lexemes() {
                 lex += symbol;
                 conditional = 5;
             } else if (symbol == '+') {
-                if (ans.back() == Lexeme("", literal)
-                    || ans.back() == Lexeme("", identifier)) {
-                    ans.emplace_back("+", binaryPlus, cnt);
-                } else if (ans.back() == Lexeme("", binaryPlus)
-                           || ans.back() == Lexeme("", unaryPlus)) {
-                    ans.back() = Lexeme("++", increment, cnt);
-                } else {
-                    ans.emplace_back("+", unaryPlus, cnt);
-                }
+                lex += symbol;
+                conditional = 7;
             } else if (symbol == '-') {
-                if (ans.back() == Lexeme("", literal)
-                    || ans.back() == Lexeme("", identifier)) {
-                    ans.emplace_back("-", binaryMinus, cnt);
-                } else if (ans.back() == Lexeme("", binaryMinus)
-                           || ans.back() == Lexeme("", unaryMinus)) {
-                    ans.back() = Lexeme("--", decrement, cnt);
-                } else {
-                    ans.emplace_back("-", unaryMinus, cnt);
-                }
+                lex += symbol;
+                conditional = 8;
             } else if (symbol == '/') {
                 ans.emplace_back("/", division, cnt);
             } else if (symbol == '*') {
@@ -194,15 +182,8 @@ void Lexical_analyzer::get_lexemes() {
                     ans.emplace_back(lex, identifier, cnt);
                 }
                 lex.clear();
-                if (ans.back() == Lexeme("", literal)
-                    || ans.back() == Lexeme("", identifier)) {
-                    ans.emplace_back("+", binaryPlus, cnt);
-                } else if (ans.back() == Lexeme("", binaryPlus)
-                           || ans.back() == Lexeme("", unaryPlus)) {
-                    ans.back() = Lexeme("++", increment, cnt);
-                } else {
-                    ans.emplace_back("+", unaryPlus, cnt);
-                }
+                lex += symbol;
+                conditional = 7;
             } else if (symbol == '-') {
                 conditional = 0;
                 if (is_reserved(lex, tr)) {
@@ -211,15 +192,8 @@ void Lexical_analyzer::get_lexemes() {
                     ans.emplace_back(lex, identifier, cnt);
                 }
                 lex.clear();
-                if (ans.back() == Lexeme("", literal)
-                    || ans.back() == Lexeme("", identifier)) {
-                    ans.emplace_back("-", binaryMinus, cnt);
-                } else if (ans.back() == Lexeme("", binaryMinus)
-                           || ans.back() == Lexeme("", unaryMinus)) {
-                    ans.back() = Lexeme("--", decrement, cnt);
-                } else {
-                    ans.emplace_back("-", unaryMinus, cnt);
-                }
+                lex += symbol;
+                conditional = 8;
             } else if (symbol == '/') {
                 conditional = 0;
                 if (is_reserved(lex, tr)) {
@@ -315,9 +289,11 @@ void Lexical_analyzer::get_lexemes() {
                 }
                 lex.clear();
                 if (symbol == '+') {
-                    ans.emplace_back("+", binaryPlus, cnt);
+                    lex += symbol;
+                    conditional = 7;
                 } else if (symbol == '-') {
-                    ans.emplace_back("-", binaryMinus, cnt);
+                    lex += symbol;
+                    conditional = 8;
                 } else if (symbol == '*') {
                     ans.emplace_back("*", binaryMultiplication, cnt);
                 } else if (symbol == '/') {
@@ -411,9 +387,11 @@ void Lexical_analyzer::get_lexemes() {
                 ans.emplace_back(lex, literal, cnt);
                 lex.clear();
                 if (symbol == '+') {
-                    ans.emplace_back("+", binaryPlus, cnt);
+                    lex += symbol;
+                    conditional = 7;
                 } else if (symbol == '-') {
-                    ans.emplace_back("-", binaryMinus, cnt);
+                    lex += symbol;
+                    conditional = 8;
                 } else if (symbol == '*') {
                     ans.emplace_back("*", binaryMultiplication, cnt);
                 } else if (symbol == '/') {
@@ -469,13 +447,15 @@ void Lexical_analyzer::get_lexemes() {
             } else if (symbol == '+') {
                 conditional = 0;
                 ans.emplace_back(lex, other, cnt);
-                ans.emplace_back("+", binaryPlus, cnt);
                 lex.clear();
+                lex += symbol;
+                conditional = 7;
             } else if (symbol == '-') {
                 conditional = 0;
                 ans.emplace_back(lex, other, cnt);
-                ans.emplace_back("-", binaryMinus, cnt);
                 lex.clear();
+                lex += symbol;
+                conditional = 8;
             } else if (symbol == '/') {
                 conditional = 0;
                 ans.emplace_back(lex, other, cnt);
@@ -574,6 +554,54 @@ void Lexical_analyzer::get_lexemes() {
                         continue;
                     default:
                         lex += symbol;
+                }
+            }
+        } else if (conditional == 7) {
+            if (symbol == '+') {
+                ans.emplace_back("++", increment);
+                lex.clear();
+                conditional = 0;
+            } else {
+                ans.emplace_back("+", unaryPlus);
+                lex.clear();
+                lex += symbol;
+                if (isdigit(symbol)) {
+                    conditional = 2;
+                } else if (symbol == '\"') {
+                    conditional = 4;
+                } else if (symbol == '\'') {
+                    conditional = 5;
+                } else if (symbol == ' ') {
+                    lex.clear();
+                    conditional = 0;
+                } else if (isalpha(symbol)) {
+                    conditional = 1;
+                } else {
+                    conditional = 6;
+                }
+            }
+        } else if (conditional == 8) {
+            if (symbol == '-') {
+                ans.emplace_back("--", decrement);
+                lex.clear();
+                conditional = 0;
+            } else {
+                ans.emplace_back("-", unaryMinus);
+                lex.clear();
+                lex += symbol;
+                if (isdigit(symbol)) {
+                    conditional = 2;
+                } else if (symbol == '\"') {
+                    conditional = 4;
+                } else if (symbol == '\'') {
+                    conditional = 5;
+                } else if (isalpha(symbol)) {
+                    conditional = 1;
+                } else if (symbol == ' ') {
+                    lex.clear();
+                    conditional = 0;
+                } else {
+                    conditional = 6;
                 }
             }
         }

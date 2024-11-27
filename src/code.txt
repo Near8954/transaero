@@ -1,40 +1,6 @@
-function int a(int a, int b, int c) {empty;}
-function float b(int a, empty) {empty;}
-
 
 main {
 
-    bool s = 1;
-
-
-    func(a, b, c);
-
-    print(s, v, o);
-
-
-
-    a = b + c;
-
-    array c[7];
-
-    switch (7) {
-        case ("abc") {
-            "expression";
-        }
-        case (5) {
-            print(a, b);
-        }
-        case (3) {
-           return 2;
-        }
-    };
-
-    true;
-
-
-
-
-    return true;
-    return false;
+    a+ ++b ;
 
 }
