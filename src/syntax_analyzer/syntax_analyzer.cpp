@@ -157,12 +157,9 @@ void Syntax_analyzer::parameter_list() {
 }
 
 void Syntax_analyzer::parameter() {
-    if (lex_.getName() != "empty") {
-        type();
-        get_lex();
-        name();
-        //        get_lex();
-    }
+    type();
+    get_lex();
+    name();
 }
 
 void Syntax_analyzer::block() {
