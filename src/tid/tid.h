@@ -5,19 +5,20 @@
 
 #include "iostream"
 #include <map>
+#include "../lexeme/lexeme.h"
 
 class tid {
 public:
     tid() = default;
 
-    void pushId(std::string& type, std::string& id);
+    void pushId(lexemeType type, std::string& id);
 
     bool checkId(std::string& id);
 
-    std::string getType(std::string& id);
+    lexemeType getType(std::string& id);
 
 private:
-    std::map<std::string, std::string> data_;
+    std::map<std::string, lexemeType> data_;
 };
 
 

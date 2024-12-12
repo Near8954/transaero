@@ -25,6 +25,8 @@ private:
 
     void get_lex();
 
+    Lexeme prev_lex();
+
     void program();
 
     void main();

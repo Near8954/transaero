@@ -16,11 +16,10 @@ main {
 
 
 
-    a = c + c + +++d - d++ or 5 || c[c[9]] && z || true;
+    a = c + c + +++d - d++ or 5 || c[c] && z || true;
 
     ++a = b = c;
     array g[123];
-    (g = h)[8] = 9;
     (a + b) = (5 - f);
 
     string s = "asdasda";

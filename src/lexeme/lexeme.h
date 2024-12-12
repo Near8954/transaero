@@ -8,6 +8,7 @@
 #include <utility>
 
 enum lexemeType {
+    def,
     reservedWord,
     literal,
     string,

@@ -617,3 +617,7 @@ Lexeme Lexical_analyzer::get_lexeme() {
 Lexeme Lexical_analyzer::peek() {
     return lexemes_[curr_lex_];
 }
+
+Lexeme Lexical_analyzer::prev_lexeme() {
+    return lexemes_[curr_lex_ - 1];
+}

@@ -4,16 +4,16 @@
 
 #include "tid.h"
 
-std::string tid::getType(std::string &id) {
+lexemeType tid::getType(std::string &id) {
     if (!checkId(id)) throw 2;
     return data_[id];
 }
 
 bool tid::checkId(std::string &id) {
-    return !data_[id].empty();
+    return data_[id] != def;
 }
 
-void tid::pushId(std::string &type, std::string &id) {
-    if (!data_[id].empty()) throw 3;
+void tid::pushId(lexemeType type, std::string &id) {
+    if (data_[id] != def) throw 3;
     data_[id] = type;
 }

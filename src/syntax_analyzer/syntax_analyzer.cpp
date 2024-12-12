@@ -4,6 +4,66 @@
 #include "syntax_analyzer.h"
 
 
+class checker {
+public:
+    checker() {
+        cur_ = new Node;
+    }
+
+    ~checker() {
+        while (cur_->p != nullptr) cur_ = cur_->p;
+        clear(cur_);
+    }
+
+    bool checkId(std::string& id) {
+        return checkIdRec(cur_, id);
+    }
+
+    void pushId(lexemeType type, std::string id) {
+        cur_->td.pushId(type, id);
+    }
+
+    lexemeType getType(std::string& id) {
+        if (!checkId(id)) throw 6;
+        Node* pointer = cur_;
+        while (!pointer->td.checkId(id)) pointer = pointer->p;
+        return pointer->td.getType(id);
+    }
+
+    void createScope() {
+        cur_->children.push_back(new Node);
+        cur_->children.back()->p = cur_;
+        cur_ = cur_->children.back();
+    }
+
+    void exitScope() {
+        cur_ = cur_->p;
+    }
+
+
+    struct Node {
+        tid td = tid();
+        std::vector<Node *> children;
+        Node *p = nullptr;
+    };
+
+    bool checkIdRec(Node *node, std::string& id) {
+        if (node == nullptr) return false;
+        if (node->td.checkId(id)) return true;
+        return checkIdRec(node->p, id);
+    }
+
+    void clear(Node *node) {
+        for (Node *child : node->children) clear(child);
+        delete node;
+    }
+
+
+    Node *cur_;
+};
+
+checker* chc = new checker();
+
 Syntax_analyzer::Syntax_analyzer() {
     analyzer_.get_lexemes();
     get_lex();
@@ -26,6 +86,10 @@ void Syntax_analyzer::get_lex() {
 
 Lexeme Syntax_analyzer::peek() {
     return analyzer_.peek();
+}
+
+Lexeme Syntax_analyzer::prev_lex() {
+    return analyzer_.prev_lexeme();
 }
 
 
@@ -65,6 +129,7 @@ void Syntax_analyzer::function_definition() {
         throw lex_;
     }
     get_lex();
+    chc->createScope();
     parameter_list();
     get_lex();
     if (lex_.getName() != ")") {
@@ -105,6 +170,7 @@ void Syntax_analyzer::parameter() {
     type();
     get_lex();
     name();
+    chc->pushId(prev_lex().getType(), lex_.getName());
 }
 
 void Syntax_analyzer::block() {
