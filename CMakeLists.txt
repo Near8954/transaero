@@ -17,6 +17,6 @@ add_executable(trans
     main.cpp
         src/syntax_analyzer/syntax_analyzer.cpp
         src/syntax_analyzer/syntax_analyzer.h
-        src/tid.cpp
-        src/tid.h
+        src/tid/tid.cpp
+        src/tid/tid.h
 )
