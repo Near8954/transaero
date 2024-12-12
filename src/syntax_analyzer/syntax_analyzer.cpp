@@ -3,6 +3,7 @@
 //
 #include "syntax_analyzer.h"
 
+
 Syntax_analyzer::Syntax_analyzer() {
     analyzer_.get_lexemes();
     get_lex();
@@ -472,6 +473,7 @@ void Syntax_analyzer::for_operator() {
     }
     get_lex();
     block();
+
 }
 
 void Syntax_analyzer::function_call() {

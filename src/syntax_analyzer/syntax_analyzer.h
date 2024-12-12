@@ -8,6 +8,7 @@
 #include "../lexical_analyzer/lexical_analyzer.h"
 #include "iostream"
 #include "vector"
+#include "../tid/tid.h"
 class Syntax_analyzer {
 public:
     Syntax_analyzer();
@@ -34,8 +35,6 @@ private:
 
     void name();
 
-    void ass_func();
-
     void parameter_list();
 
     void parameter();
@@ -48,11 +47,7 @@ private:
 
     void output_operator();
 
-    void element_list();
-
     void assignment_operator();
-
-    void relation_operations();
 
     void simple_expression();
 
@@ -74,14 +69,11 @@ private:
 
     void array_access();
 
-
     void literal();
 
     void function_call();
 
     void function_args();
-
-    void argument_list();
 
     void while_operator();
 

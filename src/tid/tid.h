@@ -1,14 +1,24 @@
 //
 // Created by Иванов Кирилл on 12.12.2024.
 //
+#pragma once
 
-#ifndef TRANS_TID_H
-#define TRANS_TID_H
-
+#include "iostream"
+#include <map>
 
 class tid {
+public:
+    tid() = default;
 
+    void pushId(std::string& type, std::string& id);
+
+    bool checkId(std::string& id);
+
+    std::string getType(std::string& id);
+
+private:
+    std::map<std::string, std::string> data_;
 };
 
 
-#endif //TRANS_TID_H
+
