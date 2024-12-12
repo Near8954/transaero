@@ -1,6 +1,50 @@
+function int a(int a, int b, int c) {empty;}
+function float b(int a, empty) {empty;}
+
+function int iuh(int z) {empty; return 1;}
+
+function float zzz(empty,int rty) {int a = b; return 3.45;}
+
 
 main {
 
-    a+ ++b ;
+    bool s = 1;
+
+
+
+    func(a, b, c);
+
+    print(s, v, o);
+
+
+
+    a = c + c + d - d or 5 || c[9] && z || true;
+
+    string b = "aaaaa";
+
+    char z = 'a';
+
+    array c[7];
+
+    switch (7) {
+        case ("abc") {
+            "expression";
+        }
+        case (5) {
+            print(a, b);
+        }
+        case (3 + 7) {
+           return 2;
+        }
+    };
+
+    if (abs == dbc) {empty;};
+
+    for (a, a < 5; a = a + 1; a) {a = a + b;};
+
+    true;
+
+    return true;
+    return false;
 
 }
