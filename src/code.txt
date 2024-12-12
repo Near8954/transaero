@@ -1,16 +1,14 @@
 function int a(int a, int b, int c) {empty;}
-function float b(int a, empty) {empty;}
+function float b(int a) {empty;}
 
 function int iuh(int z) {empty; return 1;}
 
-function float zzz(empty,int rty) {int a = b; return 3.45;}
+function float zzz(empty) {int a = b; return 3.45;}
 
 
 main {
 
     bool s = 1;
-
-
 
     func(a, b, c);
 
@@ -18,9 +16,14 @@ main {
 
 
 
-    a = c + c + d - d or 5 || c[9] && z || true;
+    a = c + c + +++d - d++ or 5 || c[c[9]] && z || true;
 
-    string b = "aaaaa";
+    ++a = b = c;
+    array g[123];
+    (g = h)[8] = 9;
+    (a + b) = (5 - f);
+
+    string s = "asdasda";
 
     char z = 'a';
 

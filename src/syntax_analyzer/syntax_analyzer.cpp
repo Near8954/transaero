@@ -3,67 +3,7 @@
 //
 #include "syntax_analyzer.h"
 
-
-int cur_id = 0;
-
-struct item {
-    std::string name_, type_;
-    int id_;
-
-
-
-    void push_id(std::string& name, std::string &type);
-
-};
-
-struct scope {
-    std::vector<item*> sc;
-    scope* up;
-    scope* down;
-
-    scope() {
-        up = down = nullptr;
-    }
-
-};
-
-scope* cur_scope;
-
-struct tid_tree {
-    scope* root;
-
-    void create_scope() {
-        auto sc = new scope();
-        cur_scope = sc;
-    }
-
-    void create_scope(int id, std::string& name, std::string &type) {
-//        auto sc = new scope(id, name, type);
-//        cur_scope = sc;
-    }
-
-    void exit_scope() {
-        cur_scope = cur_scope->up;
-    }
-
-//    bool check_id(int id, scope* sc) {
-//        if (sc->id_ == id) return true;
-//        if (sc->up == nullptr) return false;
-//        return check_id(id, sc->up);
-//    }
-
-};
-
-//void scope::push_id(std::string& name, std::string& type) {
-//    cur_scope->id_ = cur_id++;
-//    cur_scope->type_ = type;
-//    cur_scope->name_ = name;
-//}
-
-tid_tree *td;
-
 Syntax_analyzer::Syntax_analyzer() {
-    td = new tid_tree;
     analyzer_.get_lexemes();
     get_lex();
     program();
@@ -72,7 +12,7 @@ Syntax_analyzer::Syntax_analyzer() {
 bool isType(Lexeme &lex) {
     std::string name = lex.getName();
     if (name == "int" || name == "float" || name == "array" || name == "bool" || name == "float" || name == "char" ||
-        name == "void") {
+        name == "void" || name == "string") {
         return true;
     }
     return false;
@@ -150,21 +90,20 @@ void Syntax_analyzer::name() {
 }
 
 void Syntax_analyzer::parameter_list() {
-    parameter();
-    while (peek().getName() == ",") {
-        get_lex();
-        get_lex();
+    if (lex_.getName() != "empty") {
         parameter();
+        while (peek().getName() == ",") {
+            get_lex();
+            get_lex();
+            parameter();
+        }
     }
 }
 
 void Syntax_analyzer::parameter() {
-    if (lex_.getName() != "empty") {
-        type();
-        get_lex();
-        name();
-        //        get_lex();
-    }
+    type();
+    get_lex();
+    name();
 }
 
 void Syntax_analyzer::block() {
@@ -329,8 +268,13 @@ void Syntax_analyzer::multiplicative_expression() {
 }
 
 void Syntax_analyzer::unary_expression() {
-    if (lex_.getName() == "+" || lex_.getName() == "-" || lex_.getName() == "++" || lex_.getName() == "--") {
+    if (lex_.getName() == "+" || lex_.getName() == "-" || lex_.getName() == "++" || lex_.getName() == "--" || lex_.
+        getName() == "not") {
         get_lex();
+        if (lex_.getName() == "++" || lex_.getName() == "--" || lex_.getName() == "+" || lex_.getName() == "-" || lex_.
+            getName() == "not") {
+            unary_expression();
+        }
         primary_expression();
     } else {
         primary_expression();
@@ -352,12 +296,14 @@ void Syntax_analyzer::primary_expression() {
         } else if (peek().getName() == "(") {
             get_lex();
             function_call();
+        } else if (peek().getName() == "++" || peek().getName() == "--") {
+            get_lex();
         }
     } else if (lex_.getType() == string) {
-//        get_lex();
+        //        get_lex();
     } else if (lex_.getName() == "true" ||
-              lex_.getName() == "false") {
-//        get_lex();
+               lex_.getName() == "false") {
+        //        get_lex();
     } else if (lex_.getType() != lexemeType::literal) {
         throw lex_;
     }
@@ -526,7 +472,6 @@ void Syntax_analyzer::for_operator() {
     }
     get_lex();
     block();
-
 }
 
 void Syntax_analyzer::function_call() {

@@ -22,3 +22,4 @@ case
 print
 main
 function
+empty
