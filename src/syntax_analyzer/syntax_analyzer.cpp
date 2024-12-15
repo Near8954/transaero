@@ -433,15 +433,15 @@ void Syntax_analyzer::initialization() {
                 throw lex_;
             }
             if (prev_lex().getName() == "int") {
-                chc->pushId(intt, prev_lex().getName());
+                chc->pushId(intt, lex_.getName());
             } else if (prev_lex().getName() == "float") {
-                chc->pushId(floatt, prev_lex().getName());
+                chc->pushId(floatt, lex_.getName());
             } else if (prev_lex().getName() == "string") {
-                chc->pushId(string, prev_lex().getName());
+                chc->pushId(string, lex_.getName());
             } else if (prev_lex().getName() == "bool") {
-                chc->pushId(booll, prev_lex().getName());
+                chc->pushId(booll, lex_.getName());
             } else if (prev_lex().getName() == "char") {
-                chc->pushId(charr, prev_lex().getName());
+                chc->pushId(charr, lex_.getName());
             }
             get_lex();
             if (lex_.getName() != "=") {
