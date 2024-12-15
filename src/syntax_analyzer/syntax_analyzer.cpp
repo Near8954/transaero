@@ -129,7 +129,9 @@ void Syntax_analyzer::function_definition() {
         throw lex_;
     }
     get_lex();
+
     chc->createScope();
+
     parameter_list();
     get_lex();
     if (lex_.getName() != ")") {
@@ -175,6 +177,7 @@ void Syntax_analyzer::parameter() {
 
 void Syntax_analyzer::block() {
     expression_list();
+    chc->exitScope();
     get_lex();
     if (lex_.getName() != "}") {
         throw lex_;
@@ -408,6 +411,7 @@ void Syntax_analyzer::initialization() {
             if (lex_.getType() != identifier) {
                 throw lex_;
             }
+            chc->pushId(array, lex_.getName());
             get_lex();
             if (lex_.getName() != "[") {
                 throw lex_;
@@ -420,10 +424,24 @@ void Syntax_analyzer::initialization() {
             if (lex_.getName() != "]") {
                 throw lex_;
             }
+
         } else {
+
+
             get_lex();
             if (lex_.getType() != identifier) {
                 throw lex_;
+            }
+            if (prev_lex().getName() == "int") {
+                chc->pushId(intt, prev_lex().getName());
+            } else if (prev_lex().getName() == "float") {
+                chc->pushId(floatt, prev_lex().getName());
+            } else if (prev_lex().getName() == "string") {
+                chc->pushId(string, prev_lex().getName());
+            } else if (prev_lex().getName() == "bool") {
+                chc->pushId(booll, prev_lex().getName());
+            } else if (prev_lex().getName() == "char") {
+                chc->pushId(charr, prev_lex().getName());
             }
             get_lex();
             if (lex_.getName() != "=") {
@@ -450,8 +468,8 @@ void Syntax_analyzer::if_conditional_statement() {
         throw lex_;
     }
     get_lex();
+    chc->createScope();
     block();
-
     if (peek().getName() == "else") {
         get_lex();
         get_lex();
@@ -459,6 +477,7 @@ void Syntax_analyzer::if_conditional_statement() {
             throw lex_;
         }
         get_lex();
+        chc->createScope();
         block();
     }
 }
@@ -508,6 +527,7 @@ void Syntax_analyzer::case_block() {
         throw lex_;
     }
     get_lex();
+    chc->createScope();
     block();
 }
 
@@ -516,6 +536,7 @@ void Syntax_analyzer::for_operator() {
         throw lex_;
     }
     get_lex();
+    chc->createScope();
     expression();
     get_lex();
     if (lex_.getName() != ";") {
@@ -538,6 +559,7 @@ void Syntax_analyzer::for_operator() {
         throw lex_;
     }
     get_lex();
+//    chc->createScope();
     block();
 
 }

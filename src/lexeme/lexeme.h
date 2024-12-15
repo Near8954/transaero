@@ -32,6 +32,11 @@ enum lexemeType {
     decrement,
     logicalOperations,
     assignmentOperators,
+    array,
+    floatt,
+    intt,
+    booll,
+    charr,
     other,
 };
 
