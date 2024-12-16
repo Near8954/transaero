@@ -1,4 +1,3 @@
 main {
-    bool s = 1;
-
+    "std" + "asd";
 }

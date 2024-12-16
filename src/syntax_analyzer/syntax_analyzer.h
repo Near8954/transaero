@@ -6,6 +6,7 @@
 #define SYNTAX_ANALYZER_H
 #include <string>
 #include "../lexical_analyzer/lexical_analyzer.h"
+#include "../semstack/semstack.h"
 #include "iostream"
 #include "vector"
 #include "../tid/tid.h"
@@ -16,6 +17,8 @@ public:
 private:
 
     Lexical_analyzer analyzer_;
+
+    semstack semstack_;
 
     Lexeme lex_;
 

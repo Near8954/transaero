@@ -19,4 +19,6 @@ add_executable(trans
         src/syntax_analyzer/syntax_analyzer.h
         src/tid/tid.cpp
         src/tid/tid.h
+        src/semstack/semstack.cpp
+        src/semstack/semstack.h
 )
