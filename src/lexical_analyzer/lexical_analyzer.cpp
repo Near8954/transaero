@@ -283,7 +283,7 @@ void Lexical_analyzer::get_lexemes() {
                 symbol == '&' ||
                 symbol == '\n') {
                 conditional = 0;
-                ans.emplace_back(lex, literal, cnt);
+                ans.emplace_back(lex, intt, cnt);
                 if (symbol == '\n') {
                     ++cnt;
                 }
@@ -318,55 +318,55 @@ void Lexical_analyzer::get_lexemes() {
                 switch (symbol) {
                     case '{':
                         conditional = 0;
-                        ans.emplace_back(lex, literal, cnt);
+                        ans.emplace_back(lex, intt, cnt);
                         lex.clear();
                         ans.emplace_back("{", openingCurlyBracket, cnt);
                         continue;
                     case '}':
                         conditional = 0;
-                        ans.emplace_back(lex, literal, cnt);
+                        ans.emplace_back(lex, intt, cnt);
                         lex.clear();
                         ans.emplace_back("}", closingCurlyBracket, cnt);
                         continue;
                     case '(':
                         conditional = 0;
-                        ans.emplace_back(lex, literal, cnt);
+                        ans.emplace_back(lex, intt, cnt);
                         lex.clear();
                         ans.emplace_back("(", openingRoundBracket, cnt);
                         continue;
                     case ')':
                         conditional = 0;
-                        ans.emplace_back(lex, literal, cnt);
+                        ans.emplace_back(lex, intt, cnt);
                         lex.clear();
                         ans.emplace_back(")", closingRoundBracket, cnt);
                         continue;
                     case '[':
                         conditional = 0;
-                        ans.emplace_back(lex, literal, cnt);
+                        ans.emplace_back(lex, intt, cnt);
                         lex.clear();
                         ans.emplace_back("[", openingSquareBracket, cnt);
                         continue;
                     case ']':
                         conditional = 0;
-                        ans.emplace_back(lex, literal, cnt);
+                        ans.emplace_back(lex, intt, cnt);
                         lex.clear();
                         ans.emplace_back("]", closingSquareBracket, cnt);
                         continue;
                     case '>':
                         conditional = 0;
-                        ans.emplace_back(lex, literal, cnt);
+                        ans.emplace_back(lex, intt, cnt);
                         lex.clear();
                         ans.emplace_back(">", logicalOperations, cnt);
                         continue;
                     case '<':
                         conditional = 0;
-                        ans.emplace_back(lex, literal, cnt);
+                        ans.emplace_back(lex, intt, cnt);
                         lex.clear();
                         ans.emplace_back("<", logicalOperations, cnt);
                         continue;
                     default:
                         conditional = 0;
-                        ans.emplace_back(lex, literal, cnt);
+                        ans.emplace_back(lex, intt, cnt);
                         ans.emplace_back("" + symbol, other, cnt);
                         lex.clear();
                 }
@@ -384,7 +384,7 @@ void Lexical_analyzer::get_lexemes() {
                 symbol == '>' ||
                 symbol == '<') {
                 conditional = 0;
-                ans.emplace_back(lex, literal, cnt);
+                ans.emplace_back(lex, floatt, cnt);
                 lex.clear();
                 if (symbol == '+') {
                     lex += symbol;
@@ -411,7 +411,7 @@ void Lexical_analyzer::get_lexemes() {
                 lex += symbol;
             } else {
                 conditional = 0;
-                ans.emplace_back(lex, literal, cnt);
+                ans.emplace_back(lex, floatt, cnt);
                 ans.emplace_back("" + symbol, other, cnt);
                 lex.clear();
             }
@@ -431,7 +431,7 @@ void Lexical_analyzer::get_lexemes() {
                 conditional = 0;
                 lex += symbol;
                 if (lex.size() == 3) {
-                    ans.emplace_back(lex, literal, cnt);
+                    ans.emplace_back(lex, floatt, cnt);
                 } else {
                     ans.emplace_back(lex, other, cnt);
                 }

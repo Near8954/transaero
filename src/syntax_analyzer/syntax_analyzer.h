@@ -9,7 +9,6 @@
 #include "../semstack/semstack.h"
 #include "iostream"
 #include "vector"
-#include "../tid/tid.h"
 class Syntax_analyzer {
 public:
     Syntax_analyzer();

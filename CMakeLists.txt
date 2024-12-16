@@ -21,4 +21,6 @@ add_executable(trans
         src/tid/tid.h
         src/semstack/semstack.cpp
         src/semstack/semstack.h
+        src/checker/checker.cpp
+        src/checker/checker.h
 )
