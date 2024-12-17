@@ -312,14 +312,15 @@ void Syntax_analyzer::primary_expression() {
     } else if (peek().getName() == "++" || peek().getName() == "--") {
       get_lex();
     } else {
-      semstack_.push(lex_);
+      Lexeme lex("lex", chc->getType(lex_.getName()));
+      semstack_.push(lex);
     }
   } else if (lex_.getType() == string) {
     Lexeme lex("string", string);
     semstack_.push(lex);
-
   } else if (lex_.getName() == "true" || lex_.getName() == "false") {
-    //        get_lex();
+    Lexeme lex("bool", booll);
+    semstack_.push(lex);
   } else if (lex_.getType() == intt) {
     Lexeme lex("intt", intt);
     semstack_.push(lex);

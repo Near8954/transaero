@@ -21,7 +21,7 @@ public:
 
   void pushId(lexemeType type, std::string id) { cur_->td.pushId(type, id); }
 
-  lexemeType getType(std::string &id) {
+  lexemeType getType(std::string id) {
     if (!checkId(id))
       throw 6;
     Node *pointer = cur_;

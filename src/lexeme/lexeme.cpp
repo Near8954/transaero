@@ -5,9 +5,7 @@
 #include "lexeme.h"
 #include <iostream>
 
-lexemeType Lexeme::getType() const {
-    return _type;
-}
+lexemeType Lexeme::getType() const { return _type; }
 
 std::string Lexeme::getName() const {
     return _name;
