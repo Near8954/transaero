@@ -562,7 +562,11 @@ void Lexical_analyzer::get_lexemes() {
                 lex.clear();
                 conditional = 0;
             } else {
-                ans.emplace_back("+", unaryPlus);
+                if (ans.back().getType() == identifier || ans.back().getType() == intt || ans.back().getType() == floatt) {
+                    ans.emplace_back("+", binaryPlus);
+                } else {
+                    ans.emplace_back("+", unaryPlus);
+                }
                 lex.clear();
                 lex += symbol;
                 if (isdigit(symbol)) {
@@ -586,7 +590,11 @@ void Lexical_analyzer::get_lexemes() {
                 lex.clear();
                 conditional = 0;
             } else {
-                ans.emplace_back("-", unaryMinus);
+                if (ans.back().getType() == identifier || ans.back().getType() == intt || ans.back().getType() == floatt) {
+                    ans.emplace_back("+", binaryMinus);
+                } else {
+                    ans.emplace_back("+", unaryMinus);
+                }
                 lex.clear();
                 lex += symbol;
                 if (isdigit(symbol)) {

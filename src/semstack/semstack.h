@@ -12,12 +12,13 @@
 class semstack {
 public:
   void push(const Lexeme &lex) { stack.push_back(lex); }
+  void clear();
   void checkBin();
-  void set_checker(const checker &chc) { chc_ = chc; }
+  void set_checker(checker *chc) { chc_ = chc; }
 
 private:
   std::vector<Lexeme> stack;
-  checker chc_;
+  checker *chc_;
 };
 
 #endif // SEMSTACK_H
