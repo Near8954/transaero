@@ -376,7 +376,7 @@ void Syntax_analyzer::initialization() {
                 throw lex_;
             }
             get_lex();
-            if (lex_.getType() != lexemeType::literal) {
+            if (lex_.getType() != intt) {
                 throw lex_;
             }
             get_lex();
@@ -388,16 +388,23 @@ void Syntax_analyzer::initialization() {
             if (lex_.getType() != identifier) {
                 throw lex_;
             }
+            lexemeType tmp;
+            std::string tmp_name = lex_.getName();
             if (prev_lex().getName() == "int") {
-                chc->pushId(intt, lex_.getName());
+                tmp = intt;
+                // chc->pushId(intt, lex_.getName());
             } else if (prev_lex().getName() == "float") {
-                chc->pushId(floatt, lex_.getName());
+                tmp = floatt;
+                // chc->pushId(floatt, lex_.getName());
             } else if (prev_lex().getName() == "string") {
-                chc->pushId(string, lex_.getName());
+                tmp = string;
+                // chc->pushId(string, lex_.getName());
             } else if (prev_lex().getName() == "bool") {
-                chc->pushId(booll, lex_.getName());
+                tmp = booll;
+                // chc->pushId(booll, lex_.getName());
             } else if (prev_lex().getName() == "char") {
-                chc->pushId(charr, lex_.getName());
+                tmp = charr;
+                // chc->pushId(charr, lex_.getName());
             }
             semstack_.push(lex_);
             get_lex();
@@ -407,6 +414,7 @@ void Syntax_analyzer::initialization() {
             semstack_.push(Lexeme("=", assignmentOperators));
             get_lex();
             expression();
+            chc->pushId(tmp, tmp_name);
             semstack_.checkBin();
             semstack_.clear();
         }

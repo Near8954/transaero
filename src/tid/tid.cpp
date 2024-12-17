@@ -5,7 +5,9 @@
 #include "tid.h"
 
 lexemeType tid::getType(std::string &id) {
-    if (!checkId(id)) throw 2;
+    if (!checkId(id)) {
+        throw std::runtime_error("Variable not initialized");
+    }
     return data_[id];
 }
 
@@ -14,6 +16,8 @@ bool tid::checkId(std::string &id) {
 }
 
 void tid::pushId(lexemeType type, std::string &id) {
-    if (data_[id] != def) throw 3;
+    if (data_[id] != def) {
+        throw std::runtime_error("Variable already initialized");
+    }
     data_[id] = type;
 }

@@ -562,7 +562,7 @@ void Lexical_analyzer::get_lexemes() {
                 lex.clear();
                 conditional = 0;
             } else {
-                if (ans.back().getType() == identifier || ans.back().getType() == intt || ans.back().getType() == floatt) {
+                if (ans.back().getType() == identifier || ans.back().getType() == intt || ans.back().getType() == floatt || ans.back().getType() == string) {
                     ans.emplace_back("+", binaryPlus);
                 } else {
                     ans.emplace_back("+", unaryPlus);
@@ -590,7 +590,7 @@ void Lexical_analyzer::get_lexemes() {
                 lex.clear();
                 conditional = 0;
             } else {
-                if (ans.back().getType() == identifier || ans.back().getType() == intt || ans.back().getType() == floatt) {
+                if (ans.back().getType() == identifier || ans.back().getType() == intt || ans.back().getType() == floatt  || ans.back().getType() == string) {
                     ans.emplace_back("+", binaryMinus);
                 } else {
                     ans.emplace_back("+", unaryMinus);

@@ -13,7 +13,7 @@ void semstack::checkBin() {
     stack.pop_back();
     if (lhs.getType() == string && rhs.getType() == string) {
         if (!(op.getName() == "+")) {
-            throw "Wrong operation for string";
+            throw std::runtime_error("Unsupported operation for string");
         }
         stack.emplace_back("string", string);
     } else if (lhs.getType() == floatt || lhs.getType() == intt) {
@@ -24,14 +24,26 @@ void semstack::checkBin() {
         if ((rhs.getType() == floatt || lhs.getType() == floatt ||
              rhs.getType() == identifier &&
              (chc_->getType(rhs.getName()) == floatt ||
-              chc_->getType(rhs.getName()) == intt)) &&
-            (op.getName() == "+" || op.getName() == "-" || op.getName() == "*" ||
-             op.getName() == "/")) {
-            stack.emplace_back("result", floatt);
-        } else if (lhs.getType() == intt && rhs.getType() == intt &&
-                   (op.getName() == "+" || op.getName() == "-" ||
-                    op.getName() == "*" || op.getName() == "/")) {
-            stack.emplace_back("result", intt);
+              chc_->getType(rhs.getName()) == intt))) {
+            if ((op.getName() == "+" || op.getName() == "-" || op.getName() == "*" ||
+                 op.getName() == "/")) {
+                stack.emplace_back("result", floatt);
+            } else if (op.getName() == "==" || op.getName() == ">" || op.getName() == "<" || op.getName() == "!=" || op.
+                       getName() == ">=" || op.getName() == "<=") {
+                stack.emplace_back("result", booll);
+            } else {
+                throw std::runtime_error("Unsupported operation for numeric types");
+            }
+        } else if (lhs.getType() == intt && rhs.getType() == intt) {
+            if (op.getName() == "+" || op.getName() == "-" ||
+                op.getName() == "*" || op.getName() == "/") {
+                stack.emplace_back("result", intt);
+            } else if (op.getName() == "==" || op.getName() == "!=" || op.getName() == ">" || op.getName() == "<" || op.
+                       getName() == ">=" || op.getName() == "<=") {
+                stack.emplace_back("result", booll);
+            } else {
+                throw std::runtime_error("Unsupported operation for numeric types");
+            }
         } else {
             throw std::runtime_error("Unsupported operation for numeric types");
         }
@@ -58,6 +70,21 @@ void semstack::checkBin() {
                     throw std::runtime_error("Unsupported operation for numeric types");
                 }
                 stack.emplace_back("result", floatt);
+            } else if (lhs_type == booll & rhs_type == booll) {
+                if (!(op.getName() == "=" || op.getName() == "!=" || op.getName() == "==" || op.getName() == "&&" || op.
+                      getName() == "||" || op.
+                      getName() == "and" || op.getName() == "or")) {
+                    throw std::runtime_error("Unsupported operation for bool types");
+                }
+                stack.emplace_back("result", booll);
+            } else if (lhs_type == string && rhs_type == string) {
+                if (op.getName() == "+") {
+                    stack.emplace_back("result", string);
+                } else if (op.getName() == "==") {
+                    stack.emplace_back("result", booll);
+                } else {
+                    throw std::runtime_error("Unsupported operation for strings");
+                }
             } else {
                 throw std::runtime_error("Unsupported operands");
             }
@@ -86,10 +113,34 @@ void semstack::checkBin() {
                 throw std::runtime_error("Unsupported operation for string");
             }
             stack.emplace_back("result", string);
+        } else if (lhs_type == booll && rhs.getType() == booll) {
+            if (!(op.getName() == "=" || op.getName() == "==" || op.getName() == ">" || op.getName() == "<" || op.
+                  getName() == "!=" || op.getName() == ">=" || op.getName() == "<=")) {
+                throw std::runtime_error("Unsupported operation for bool");
+            }
+            stack.emplace_back("result", booll);
         } else {
             throw std::runtime_error(
                 "Unsupported operand types for binary operation");
         }
+    } else if (lhs.getType() == string && rhs.getType() == identifier && chc_->getType(rhs.getName()) == string) {
+        if (op.getName() == "+") {
+            stack.emplace_back("result", string);
+        } else if (op.getName() == "==") {
+            stack.emplace_back("result", booll);
+        } else {
+            throw std::runtime_error("Unsupported operation for boolean types");
+        }
+    } else if (lhs.getType() == booll && rhs.getType() == booll) {
+        if (op.getName() == "&&" || op.getName() == "||") {
+            stack.emplace_back("result", booll);
+        } else if (op.getName() == "==" || op.getName() == "!=") {
+            stack.emplace_back("result", booll);
+        } else {
+            throw std::runtime_error("Unsupported operation for boolean types");
+        }
+    } else {
+        throw std::runtime_error("Unsupported operands");
     }
 }
 
