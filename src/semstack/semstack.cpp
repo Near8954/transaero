@@ -48,6 +48,7 @@ void semstack::checkBin() {
             throw std::runtime_error("Unsupported operation for numeric types");
         }
     } else if (lhs.getType() == identifier) {
+        // left operand is variable
         lexemeType lhs_type = chc_->getType(lhs.getName());
         if (rhs.getType() == identifier) {
             lexemeType rhs_type = chc_->getType(rhs.getName());
@@ -143,6 +144,38 @@ void semstack::checkBin() {
         throw std::runtime_error("Unsupported operands");
     }
 }
+
+void semstack::checkUno() {
+    auto rhs = stack.back();
+    stack.pop_back();
+    auto op = stack.back();
+    stack.pop_back();
+    auto rhs_type = rhs.getType();
+    if (rhs_type == booll) {
+        if (op.getName() != "not") {
+            throw std::runtime_error("Unsupported operation");
+        }
+        stack.emplace_back("result", booll);
+    } else if (rhs_type == identifier) {
+        auto rhst = chc_->getType(rhs.getName());
+        if (rhst == booll) {
+            if (op.getName() == "not") {
+                stack.emplace_back("result", booll);
+            } else {
+                throw std::runtime_error("Unsupported operation");
+            }
+        } else if (rhst == intt || rhst == floatt) {
+            if (op.getName() == "-" || op.getName() == "+" || op.getName() == "++" || op.getName() == "--") {
+                stack.emplace_back(rhs);
+            } else {
+                throw std::runtime_error("Unsupported operation");
+            }
+        } else {
+            throw std::runtime_error("Unsupported operation");
+        }
+    }
+}
+
 
 void semstack::clear() {
     stack.clear();

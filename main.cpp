@@ -9,5 +9,4 @@ int main() {
         std::cerr << "Error in " << lex.getName() << " in string " << lex.getPos() << "\n";
         std::cerr << "Lexem type is " << to_string(lex.getType());
     }
-
 }

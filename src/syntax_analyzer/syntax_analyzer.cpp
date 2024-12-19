@@ -283,13 +283,10 @@ void Syntax_analyzer::unary_expression() {
     if (lex_.getName() == "+" || lex_.getName() == "-" ||
         lex_.getName() == "++" || lex_.getName() == "--" ||
         lex_.getName() == "not") {
+        semstack_.push(lex_);
         get_lex();
-        if (lex_.getName() == "++" || lex_.getName() == "--" ||
-            lex_.getName() == "+" || lex_.getName() == "-" ||
-            lex_.getName() == "not") {
-            unary_expression();
-        }
-        primary_expression();
+        unary_expression();
+        semstack_.checkUno();
     } else {
         primary_expression();
     }
@@ -310,8 +307,6 @@ void Syntax_analyzer::primary_expression() {
         } else if (peek().getName() == "(") {
             get_lex();
             function_call();
-        } else if (peek().getName() == "++" || peek().getName() == "--") {
-            get_lex();
         } else {
             semstack_.push(lex_);
         }

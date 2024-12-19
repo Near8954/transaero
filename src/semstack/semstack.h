@@ -14,6 +14,7 @@ public:
   void push(const Lexeme &lex) { stack.push_back(lex); }
   void clear();
   void checkBin();
+  void checkUno();
   void set_checker(checker *chc) { chc_ = chc; }
 
 private:

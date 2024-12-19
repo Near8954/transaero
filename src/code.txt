@@ -1,8 +1,6 @@
 main {
-
-    bool p = false;
-    bool s = true;
-    bool d = p != s;
-    array c[10];
-    int j = p + s;
+    int a = 5;
+    int b = 10;
+    int c = a + b;
+    c;
 }
