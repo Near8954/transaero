@@ -39,9 +39,9 @@ enum lexemeType {
     charr,
     other,
 };
-
 inline std::string to_string(lexemeType type) {
     switch (type) {
+        case lexemeType::def: return "def";
         case lexemeType::reservedWord: return "reservedWord";
         case lexemeType::literal: return "literal";
         case lexemeType::string: return "string";
@@ -65,11 +65,15 @@ inline std::string to_string(lexemeType type) {
         case lexemeType::decrement: return "decrement";
         case lexemeType::logicalOperations: return "logicalOperations";
         case lexemeType::assignmentOperators: return "assignmentOperators";
+        case lexemeType::array: return "array";
+        case lexemeType::floatt: return "float";
+        case lexemeType::intt: return "int";
+        case lexemeType::booll: return "bool";
+        case lexemeType::charr: return "char";
         case lexemeType::other: return "other";
         default: return "Unknown";
     }
 }
-
 class Lexeme {
 public:
     Lexeme() = default;

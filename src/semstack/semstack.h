@@ -15,6 +15,7 @@ public:
   void clear();
   void checkBin();
   void checkUno();
+  void checkBool();
   void set_checker(checker *chc) { chc_ = chc; }
 
 private:

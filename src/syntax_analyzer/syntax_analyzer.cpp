@@ -185,6 +185,7 @@ void Syntax_analyzer::while_operator() {
     }
     get_lex();
     expression();
+    semstack_.checkBool();
     get_lex();
     if (lex_.getName() != ")") {
         throw lex_;
@@ -194,6 +195,7 @@ void Syntax_analyzer::while_operator() {
         throw lex_;
     }
     get_lex();
+    chc->createScope();
     block();
 }
 
@@ -422,6 +424,7 @@ void Syntax_analyzer::if_conditional_statement() {
     }
     get_lex();
     expression();
+    semstack_.checkBool();
     get_lex();
     if (lex_.getName() != ")") {
         throw lex_;
@@ -501,18 +504,21 @@ void Syntax_analyzer::for_operator() {
     get_lex();
     chc->createScope();
     expression();
+    semstack_.clear();
     get_lex();
     if (lex_.getName() != ";") {
         throw lex_;
     }
     get_lex();
     expression();
+    semstack_.checkBool();
     get_lex();
     if (lex_.getName() != ";") {
         throw lex_;
     }
     get_lex();
     expression();
+    semstack_.clear();
     get_lex();
     if (lex_.getName() != ")") {
         throw lex_;

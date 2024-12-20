@@ -15,7 +15,6 @@ int Lexeme::getPos() const {
     return _pos;
 }
 
-
 bool Lexeme::operator==(const Lexeme &other) const {
     return _type == other._type;
 }

@@ -1,6 +1,6 @@
 main {
-    int a = 5;
-    stri b = 10;
-    int c = a + b;
-    c;
+    bool a = true;
+    while (a) {
+        empty;
+    };
 }
