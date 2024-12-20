@@ -23,4 +23,6 @@ add_executable(trans
         src/semstack/semstack.h
         src/checker/checker.cpp
         src/checker/checker.h
+        src/error/error.cpp
+        src/error/error.h
 )

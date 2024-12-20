@@ -29,7 +29,7 @@ public:
 
     lexemeType getType(std::string id) {
         if (!checkId(id))
-            throw std::runtime_error("Variable not initialized");
+            throw Error("Variable not initialized");
         Node *pointer = cur_;
         while (!pointer->td.checkId(id))
             pointer = pointer->p;

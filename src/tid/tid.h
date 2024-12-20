@@ -6,6 +6,7 @@
 #include "iostream"
 #include <map>
 #include "../lexeme/lexeme.h"
+#include "../error/error.h"
 
 class tid {
 public:
