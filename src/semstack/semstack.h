@@ -16,7 +16,10 @@ public:
   void checkBin();
   void checkUno();
   void checkBool();
+  Lexeme back();
+  void pop();
   void set_checker(checker *chc) { chc_ = chc; }
+
 
 private:
   std::vector<Lexeme> stack;

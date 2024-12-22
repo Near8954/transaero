@@ -221,6 +221,13 @@ void semstack::checkBool() {
     stack.pop_back();
 }
 
+Lexeme semstack::back() {
+    return stack.back();
+}
+
+void semstack::pop() {
+    stack.pop_back();
+}
 
 void semstack::clear() {
     stack.clear();

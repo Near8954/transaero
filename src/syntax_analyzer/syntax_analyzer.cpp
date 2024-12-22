@@ -320,7 +320,7 @@ void Syntax_analyzer::primary_expression() {
             get_lex();
             function_call();
         } else {
-            semstack_.push(lex_);
+            semstack_.push({"result", chc->getType(lex_.getName())});
         }
     } else if (lex_.getType() == string) {
         Lexeme lex("string", string);
@@ -558,28 +558,18 @@ std::vector<lexemeType> Syntax_analyzer::function_args() {
     }
     std::vector<lexemeType> args;
     while (peek().getName() != ")") {
-        if (lex_.getType() != lexemeType::literal && lex_.getType() != identifier) {
-            throw lex_;
-        }
-        if (lex_.getType() == identifier) {
-            args.push_back(chc->getType(lex_.getName()));
-        } else {
-            args.push_back(lex_.getType());
-        }
-
+        assignment_operator();
+        args.push_back(semstack_.back().getType());
+        semstack_.pop();
         get_lex();
         if (lex_.getType() != comma) {
             throw lex_;
         }
         get_lex();
     }
-    if (lex_.getType() != lexemeType::literal && lex_.getType() != identifier) {
-        throw lex_;
-    }
-    if (lex_.getType() == identifier) {
-        args.push_back(chc->getType(lex_.getName()));
-    } else {
-        args.push_back(lex_.getType());
-    }
+    assignment_operator();
+    args.push_back(semstack_.back().getType());
+    semstack_.pop();
+
     return args;
 }

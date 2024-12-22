@@ -20,6 +20,8 @@ private:
 
     semstack semstack_;
 
+    semstack func_semstack_;
+
     function_table table_;
 
     Lexeme lex_;

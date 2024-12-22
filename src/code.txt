@@ -1,9 +1,10 @@
-function int f(int a) {
+function int f(int a, int c) {
     empty;
 }
 
 
 main {
     int b = 5;
-    int a = 5 * f(b);
+    int c = 6;
+    int a = 5 * f(b, c);
 }
