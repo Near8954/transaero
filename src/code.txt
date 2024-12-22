@@ -1,10 +1,11 @@
-function int f(int a, int c) {
-    empty;
+function int a(int b, int c) {
+    return b - c;
 }
 
 
 main {
-    int b = 5;
-    int c = 6;
-    int a = 5 * f(b, c);
+    int v = 5;
+    string b = "hui";
+
+
 }

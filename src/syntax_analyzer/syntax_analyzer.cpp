@@ -14,18 +14,26 @@ Syntax_analyzer::Syntax_analyzer() {
 
 bool isType(Lexeme &lex) {
     std::string name = lex.getName();
-    if (name == "int" || name == "float" || name == "array" || name == "bool" ||
+    if (name == "int" || name == "array" || name == "bool" ||
         name == "float" || name == "char" || name == "void" || name == "string") {
         return true;
     }
     return false;
 }
 
-void Syntax_analyzer::get_lex() { lex_ = analyzer_.get_lexeme(); }
+void Syntax_analyzer::get_lex() {
+    lex_ = analyzer_.get_lexeme();
+}
 
-Lexeme Syntax_analyzer::peek() { return analyzer_.peek(); }
+Lexeme Syntax_analyzer::peek() {
+    return analyzer_.peek();
+}
 
-Lexeme Syntax_analyzer::prev_lex() { return analyzer_.prev_lexeme(); }
+Lexeme Syntax_analyzer::prev_lex() {
+    return analyzer_.prev_lexeme();
+}
+
+lexemeType func_type;
 
 void Syntax_analyzer::program() {
     if (lex_.getName() == "main") {
@@ -56,6 +64,7 @@ void Syntax_analyzer::function_definition() {
     }
     get_lex();
     type();
+    func_type = from_string(lex_.getName());
     lexemeType type = from_string(lex_.getName());
     get_lex();
     name();
@@ -114,7 +123,7 @@ lexemeType Syntax_analyzer::parameter() {
     Lexeme lex = lex_;
     get_lex();
     name();
-    chc->pushId(prev_lex().getType(), lex_.getName());
+    chc->pushId(from_string(prev_lex().getName()), lex_.getName());
     return from_string(lex.getName());
 }
 
@@ -160,6 +169,9 @@ void Syntax_analyzer::all_operators() {
     } else if (lex_.getName() == "return") {
         get_lex();
         expression();
+        if (semstack_.back().getType() != func_type) {
+            throw Error("Return type mismatch");
+        }
     } else if (lex_.getName() == "print") {
         get_lex();
         output_operator();
@@ -175,7 +187,9 @@ void Syntax_analyzer::all_operators() {
     }
 }
 
-void Syntax_analyzer::expression() { simple_expression(); }
+void Syntax_analyzer::expression() {
+    simple_expression();
+}
 
 void Syntax_analyzer::output_operator() {
     if (lex_.getName() != "(") {
@@ -209,7 +223,9 @@ void Syntax_analyzer::while_operator() {
     block();
 }
 
-void Syntax_analyzer::simple_expression() { comma_expression(); }
+void Syntax_analyzer::simple_expression() {
+    comma_expression();
+}
 
 void Syntax_analyzer::comma_expression() {
     assignment_operator();
