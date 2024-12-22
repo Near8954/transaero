@@ -337,7 +337,7 @@ void Syntax_analyzer::primary_expression() {
             get_lex();
             function_call();
         } else {
-            semstack_.push({"result", chc->getType(lex_.getName())});
+            semstack_.push(lex_);
         }
     } else if (lex_.getType() == string) {
         Lexeme lex("string", string);

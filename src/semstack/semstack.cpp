@@ -12,12 +12,16 @@ void semstack::checkBin() {
     Lexeme lhs = stack.back();
     stack.pop_back();
     if (lhs.getType() == string && rhs.getType() == string) {
-        if (!(op.getName() == "+")) {
+        if (!(op.getName() == "+" || op.getName() == "!=" || op.getName() == "==")) {
             throw Error(
                 "Unsupported operation '" + op.getName() + "' for string type" + " in line " + std::to_string(
                     op.getPos()));
         }
-        stack.emplace_back("string", string);
+        if (op.getName() == "==" || op.getName() == "!=") {
+            stack.emplace_back("result", booll);
+        } else {
+            stack.emplace_back("result", string);
+        }
     } else if (lhs.getType() == floatt || lhs.getType() == intt) {
         if (rhs.getType() != floatt && rhs.getType() != intt && rhs.getType() != identifier) {
             throw Error(
@@ -207,6 +211,10 @@ void semstack::checkUno() {
                 "Unsupported operation '" + op.getName() + "' for type: " + to_string(rhst) + " in line " +
                 std::to_string(op.getPos()));
         }
+    } else {
+        throw Error(
+            "Wrong type " + rhs.getName() + " for " + op.getName() + " operation in line " +
+            std::to_string(op.getPos()));
     }
 }
 
