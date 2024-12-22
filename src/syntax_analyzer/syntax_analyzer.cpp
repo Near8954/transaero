@@ -310,7 +310,10 @@ void Syntax_analyzer::multiplicative_expression() {
 
 void Syntax_analyzer::unary_expression() {
     if (lex_.getName() == "+" || lex_.getName() == "-" ||
-        lex_.getName() == "++" || lex_.getName() == "--" ||
+        (lex_.getName() == "++" && peek().getType() == identifier || peek().getName() == "++" || peek().getName() ==
+         "--") || lex_.getName() == "--" && (peek().getType() == identifier || peek().getName() == "++" || peek().
+                                             getName() ==
+                                             "--") ||
         lex_.getName() == "not") {
         semstack_.push(lex_);
         get_lex();
