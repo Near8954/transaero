@@ -380,8 +380,8 @@ void Syntax_analyzer::literal() {
     }
 }
 
-void Syntax_analyzer::initialization() {
-    if (lex_.getType() == identifier) {
+void Syntax_analyzer::initialization(bool f) {
+    if (lex_.getType() == identifier && f) {
         semstack_.push(lex_);
         get_lex();
         if (lex_.getType() != assignmentOperators) {
@@ -392,7 +392,7 @@ void Syntax_analyzer::initialization() {
         semstack_.checkBin();
     } else {
         type();
-        if (lex_.getName() == "array") {
+        if (lex_.getName() == "array" && f) {
             get_lex();
             if (lex_.getType() != identifier) {
                 throw lex_;
@@ -542,7 +542,7 @@ void Syntax_analyzer::for_operator() {
     }
     get_lex();
     chc->createScope();
-    expression();
+    initialization(false);
     semstack_.clear();
     get_lex();
     if (lex_.getName() != ";") {

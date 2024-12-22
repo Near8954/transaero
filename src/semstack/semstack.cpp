@@ -67,6 +67,11 @@ void semstack::checkBin() {
                 return;
             }
             if (lhs_type == intt && rhs_type == intt) {
+                if (op.getName() == "==" || op.getName() == "!=" || op.getName() == ">" || op.getName() == "<" || op.
+                    getName() == ">=" || op.getName() == "<=") {
+                    stack.emplace_back("result", booll);
+                    return;
+                }
                 if (!((op.getName() == "+" || op.getName() == "-" || op.getName() == "/" || op.getName() == "*") || op.
                       getName() == "=")) {
                     throw Error(
@@ -75,6 +80,11 @@ void semstack::checkBin() {
                 }
                 stack.emplace_back("result", intt);
             } else if (lhs_type == intt && rhs_type == floatt || lhs_type == floatt && rhs_type == intt) {
+                if (op.getName() == "==" || op.getName() == "!=" || op.getName() == ">" || op.getName() == "<" || op.
+                    getName() == ">=" || op.getName() == "<=") {
+                    stack.emplace_back("result", booll);
+                    return;
+                }
                 if (!((op.getName() == "+" || op.getName() == "-" || op.getName() == "/" || op.getName() == "*") || op.
                       getName() == "=")) {
                     throw Error(
@@ -93,7 +103,7 @@ void semstack::checkBin() {
             } else if (lhs_type == string && rhs_type == string) {
                 if (op.getName() == "+") {
                     stack.emplace_back("result", string);
-                } else if (op.getName() == "==") {
+                } else if (op.getName() == "==" || op.getName() == "!=") {
                     stack.emplace_back("result", booll);
                 } else {
                     throw Error(
@@ -108,10 +118,17 @@ void semstack::checkBin() {
         } else if (rhs.getType() == intt || rhs.getType() == floatt) {
             lexemeType rhs_type = rhs.getType();
             if (lhs_type == intt && rhs_type == intt) {
-                if (!((op.getName() == "+" || op.getName() == "-" || op.getName() == "/" || op.getName() == "*" || op.
+                if (op.getName() == "==" || op.getName() == "!=" || op.getName() == ">" || op.getName() == "<" || op.
+                    getName() == ">=" || op.getName() == "<=") {
+                    stack.emplace_back("result", booll);
+                    return;
+                }
+                if (!((op.getName() == "+" || op.getName() == "-" || op.getName() == "/" || op.getName() == "*" ||
+                       op.
                        getName() == "="))) {
                     throw Error(
-                        "Unsupported operation '" + op.getName() + "' for numeric types" + " in line " + std::to_string(
+                        "Unsupported operation '" + op.getName() + "' for numeric types" + " in line " +
+                        std::to_string(
                             op.getPos()));
                 }
                 stack.emplace_back("result", intt);

@@ -10,12 +10,12 @@
 #include "../function_table/function_table.h"
 #include "iostream"
 #include "vector"
+
 class Syntax_analyzer {
 public:
     Syntax_analyzer();
 
 private:
-
     Lexical_analyzer analyzer_;
 
     semstack semstack_;
@@ -88,7 +88,7 @@ private:
 
     void for_operator();
 
-    void initialization();
+    void initialization(bool f = true);
 
     void if_conditional_statement();
 
@@ -97,7 +97,6 @@ private:
     void case_block(lexemeType type);
 
     void all_operators();
-
 };
 
 
