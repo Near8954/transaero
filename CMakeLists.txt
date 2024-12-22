@@ -25,4 +25,6 @@ add_executable(trans
         src/checker/checker.h
         src/error/error.cpp
         src/error/error.h
+        src/function_table/function_table.cpp
+        src/function_table/function_table.h
 )

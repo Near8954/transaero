@@ -1,6 +1,9 @@
+function int f(int a) {
+    empty;
+}
+
+
 main {
-    bool a = true;
-    while (a) {
-        empty;
-    };
+    int b = 5;
+    int a = 5 * f(b);
 }

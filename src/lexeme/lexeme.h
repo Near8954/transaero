@@ -39,6 +39,7 @@ enum lexemeType {
     charr,
     other,
 };
+
 inline std::string to_string(lexemeType type) {
     switch (type) {
         case lexemeType::def: return "def";
@@ -74,6 +75,42 @@ inline std::string to_string(lexemeType type) {
         default: return "Unknown";
     }
 }
+
+inline lexemeType from_string(const std::string &type) {
+    if (type == "def") return lexemeType::def;
+    if (type == "reservedWord") return lexemeType::reservedWord;
+    if (type == "literal") return lexemeType::literal;
+    if (type == "string") return lexemeType::string;
+    if (type == "openingRoundBracket") return lexemeType::openingRoundBracket;
+    if (type == "closingRoundBracket") return lexemeType::closingRoundBracket;
+    if (type == "openingSquareBracket") return lexemeType::openingSquareBracket;
+    if (type == "closingSquareBracket") return lexemeType::closingSquareBracket;
+    if (type == "openingCurlyBracket") return lexemeType::openingCurlyBracket;
+    if (type == "closingCurlyBracket") return lexemeType::closingCurlyBracket;
+    if (type == "binaryPlus") return lexemeType::binaryPlus;
+    if (type == "unaryPlus") return lexemeType::unaryPlus;
+    if (type == "binaryMinus") return lexemeType::binaryMinus;
+    if (type == "unaryMinus") return lexemeType::unaryMinus;
+    if (type == "binaryMultiplication") return lexemeType::binaryMultiplication;
+    if (type == "division") return lexemeType::division;
+    if (type == "identifier") return lexemeType::identifier;
+    if (type == "dot") return lexemeType::dot;
+    if (type == "comma") return lexemeType::comma;
+    if (type == "semicolon") return lexemeType::semicolon;
+    if (type == "increment") return lexemeType::increment;
+    if (type == "decrement") return lexemeType::decrement;
+    if (type == "logicalOperations") return lexemeType::logicalOperations;
+    if (type == "assignmentOperators") return lexemeType::assignmentOperators;
+    if (type == "array") return lexemeType::array;
+    if (type == "float") return lexemeType::floatt;
+    if (type == "int") return lexemeType::intt;
+    if (type == "bool") return lexemeType::booll;
+    if (type == "char") return lexemeType::charr;
+    if (type == "other") return lexemeType::other;
+    return lexemeType::other; // Default case if no match is found
+}
+
+
 class Lexeme {
 public:
     Lexeme() = default;

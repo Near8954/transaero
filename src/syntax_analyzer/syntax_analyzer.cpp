@@ -56,8 +56,10 @@ void Syntax_analyzer::function_definition() {
     }
     get_lex();
     type();
+    lexemeType type = from_string(lex_.getName());
     get_lex();
     name();
+    std::string name = lex_.getName();
     get_lex();
     if (lex_.getName() != "(") {
         throw lex_;
@@ -66,7 +68,7 @@ void Syntax_analyzer::function_definition() {
 
     chc->createScope();
 
-    parameter_list();
+    std::vector<lexemeType> args = parameter_list();
     get_lex();
     if (lex_.getName() != ")") {
         throw lex_;
@@ -76,6 +78,9 @@ void Syntax_analyzer::function_definition() {
         throw lex_;
     }
     get_lex();
+
+    table_.push(name, type, args);
+
     block();
 }
 
@@ -91,25 +96,30 @@ void Syntax_analyzer::name() {
     }
 }
 
-void Syntax_analyzer::parameter_list() {
+std::vector<lexemeType> Syntax_analyzer::parameter_list() {
+    std::vector<lexemeType> args;
     if (lex_.getName() != "empty") {
-        parameter();
+        args.push_back(parameter());
         while (peek().getName() == ",") {
             get_lex();
             get_lex();
-            parameter();
+            args.push_back(parameter());
         }
     }
+    return args;
 }
 
-void Syntax_analyzer::parameter() {
+lexemeType Syntax_analyzer::parameter() {
     type();
+    Lexeme lex = lex_;
     get_lex();
     name();
     chc->pushId(prev_lex().getType(), lex_.getName());
+    return from_string(lex.getName());
 }
 
 void Syntax_analyzer::block() {
+    chc->createScope();
     expression_list();
     chc->exitScope();
     get_lex();
@@ -195,7 +205,7 @@ void Syntax_analyzer::while_operator() {
         throw lex_;
     }
     get_lex();
-    chc->createScope();
+
     block();
 }
 
@@ -434,7 +444,6 @@ void Syntax_analyzer::if_conditional_statement() {
         throw lex_;
     }
     get_lex();
-    chc->createScope();
     block();
     if (peek().getName() == "else") {
         get_lex();
@@ -443,7 +452,6 @@ void Syntax_analyzer::if_conditional_statement() {
             throw lex_;
         }
         get_lex();
-        chc->createScope();
         block();
     }
 }
@@ -493,7 +501,6 @@ void Syntax_analyzer::case_block() {
         throw lex_;
     }
     get_lex();
-    chc->createScope();
     block();
 }
 
@@ -532,25 +539,34 @@ void Syntax_analyzer::for_operator() {
 }
 
 void Syntax_analyzer::function_call() {
+    Lexeme prev = prev_lex();
     if (lex_.getName() != "(") {
         throw lex_;
     }
     get_lex();
-    function_args();
+    auto args = function_args();
     get_lex();
     if (lex_.getName() != ")") {
         throw lex_;
     }
+    semstack_.push({"result", table_.getType(prev.getName(), args)});
 }
 
-void Syntax_analyzer::function_args() {
+std::vector<lexemeType> Syntax_analyzer::function_args() {
     if (lex_.getName() == "empty") {
-        return;
+        return {};
     }
+    std::vector<lexemeType> args;
     while (peek().getName() != ")") {
         if (lex_.getType() != lexemeType::literal && lex_.getType() != identifier) {
             throw lex_;
         }
+        if (lex_.getType() == identifier) {
+            args.push_back(chc->getType(lex_.getName()));
+        } else {
+            args.push_back(lex_.getType());
+        }
+
         get_lex();
         if (lex_.getType() != comma) {
             throw lex_;
@@ -560,4 +576,10 @@ void Syntax_analyzer::function_args() {
     if (lex_.getType() != lexemeType::literal && lex_.getType() != identifier) {
         throw lex_;
     }
+    if (lex_.getType() == identifier) {
+        args.push_back(chc->getType(lex_.getName()));
+    } else {
+        args.push_back(lex_.getType());
+    }
+    return args;
 }

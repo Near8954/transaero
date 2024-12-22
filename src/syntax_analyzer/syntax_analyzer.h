@@ -7,6 +7,7 @@
 #include <string>
 #include "../lexical_analyzer/lexical_analyzer.h"
 #include "../semstack/semstack.h"
+#include "../function_table/function_table.h"
 #include "iostream"
 #include "vector"
 class Syntax_analyzer {
@@ -18,6 +19,8 @@ private:
     Lexical_analyzer analyzer_;
 
     semstack semstack_;
+
+    function_table table_;
 
     Lexeme lex_;
 
@@ -39,9 +42,9 @@ private:
 
     void name();
 
-    void parameter_list();
+    std::vector<lexemeType> parameter_list();
 
-    void parameter();
+    lexemeType parameter();
 
     void block();
 
@@ -77,7 +80,7 @@ private:
 
     void function_call();
 
-    void function_args();
+    std::vector<lexemeType> function_args();
 
     void while_operator();
 
