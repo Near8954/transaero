@@ -477,8 +477,15 @@ void Syntax_analyzer::switch_conditional_statement() {
         throw lex_;
     }
     get_lex();
-    if (lex_.getType() != identifier && lex_.getType() != lexemeType::literal) {
+    if (lex_.getType() != identifier && lex_.getType() != lexemeType::literal && lex_.getType() != intt && lex_.
+        getType() != floatt && lex_.getType() != charr || lex_.getType() != string) {
         throw lex_;
+    }
+    lexemeType type;
+    if (lex_.getType() == identifier) {
+        type = chc->getType(lex_.getName());
+    } else {
+        type = lex_.getType();
     }
     get_lex();
     if (lex_.getName() != ")") {
@@ -493,21 +500,25 @@ void Syntax_analyzer::switch_conditional_statement() {
         throw lex_;
     }
     get_lex();
-    case_block();
+    case_block(type);
     get_lex();
     while (lex_.getName() == "case") {
         get_lex();
-        case_block();
+        case_block(type);
         get_lex();
     }
 }
 
-void Syntax_analyzer::case_block() {
+void Syntax_analyzer::case_block(lexemeType type) {
     if (lex_.getName() != "(") {
         throw lex_;
     }
     get_lex();
-    simple_expression();
+    expression();
+    if (semstack_.back().getType() != type) {
+        throw Error("Wrong type in case block");
+    }
+    semstack_.pop();
     get_lex();
     if (lex_.getName() != ")") {
         throw lex_;

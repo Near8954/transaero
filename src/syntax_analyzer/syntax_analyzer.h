@@ -94,7 +94,7 @@ private:
 
     void switch_conditional_statement();
 
-    void case_block();
+    void case_block(lexemeType type);
 
     void all_operators();
 
