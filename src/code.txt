@@ -4,8 +4,6 @@ function int a(int b, int c) {
 
 
 main {
-    int v = 5;
+    int v = true;
     string b = "hui";
-
-
 }

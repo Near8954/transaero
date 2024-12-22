@@ -172,6 +172,7 @@ void Syntax_analyzer::all_operators() {
         if (semstack_.back().getType() != func_type) {
             throw Error("Return type mismatch");
         }
+        func_type = other;
     } else if (lex_.getName() == "print") {
         get_lex();
         output_operator();
@@ -411,8 +412,9 @@ void Syntax_analyzer::initialization() {
             if (lex_.getType() != identifier) {
                 throw lex_;
             }
-            lexemeType tmp;
+            lexemeType tmp = other;
             std::string tmp_name = lex_.getName();
+            int pos = lex_.getPos();
             if (prev_lex().getName() == "int") {
                 tmp = intt;
                 // chc->pushId(intt, lex_.getName());
@@ -434,7 +436,7 @@ void Syntax_analyzer::initialization() {
             if (lex_.getName() != "=") {
                 throw lex_;
             }
-            semstack_.push(Lexeme("=", assignmentOperators));
+            semstack_.push(Lexeme("=", assignmentOperators, pos));
             get_lex();
             expression();
             chc->pushId(tmp, tmp_name);
