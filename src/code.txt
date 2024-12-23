@@ -1,7 +1,10 @@
+function int a(int b, int c) {
+    return b - c;
+}
+
+
 main {
-    int a = 8;
-    int n = 0;
-    for (int i = 0; i < n; ++i) {
-        empty;
-    };
+    int v = 6;
+    string b = "hui";
+    int c = a(b, b);
 }

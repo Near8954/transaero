@@ -27,4 +27,6 @@ add_executable(trans
         src/error/error.h
         src/function_table/function_table.cpp
         src/function_table/function_table.h
+        src/poliz/poliz.cpp
+        src/poliz/poliz.h
 )

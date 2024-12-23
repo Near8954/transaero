@@ -2,8 +2,7 @@
 // Created by near on 23.10.24.
 //
 #pragma once
-#ifndef LEXEME_H
-#define LEXEME_H
+
 #include <string>
 #include <utility>
 
@@ -37,6 +36,7 @@ enum lexemeType {
     intt,
     booll,
     charr,
+    func_call,
     other,
 };
 
@@ -128,17 +128,27 @@ public:
 
     int getPos() const;
 
+    void setType(lexemeType type);
+
     bool operator==(const Lexeme &other) const;
 
     void set_pos(const int pos) {
         _pos = pos;
     }
 
+    void setPriority(int x) {priority_ = x;}
+    int getPriority() const {return priority_;}
+
+    void setFieldId(int x) {field_id_ = x;}
+    int getFieldId() const {return field_id_;}
+
 private:
     lexemeType _type;
     std::string _name;
     int _pos;
+    int field_id_ = -1;
+    int priority_ = -1;
 };
 
 std::ostream &operator<<(std::ostream &os, const Lexeme &lex);
-#endif //LEXEME_H
+

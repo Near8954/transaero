@@ -24,3 +24,7 @@ std::ostream &operator<<(std::ostream &os, const Lexeme &lex) {
     os << "type: " << lex.getType() << " " << "pos: " << std::to_string(lex.getPos());
     return os;
 }
+
+void Lexeme::setType(lexemeType type) {
+    _type = type;
+}
