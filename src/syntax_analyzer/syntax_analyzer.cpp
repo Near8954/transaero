@@ -173,7 +173,6 @@ void Syntax_analyzer::all_operators() {
         if (semstack_.back().getType() != func_type) {
             throw Error("Return type mismatch");
         }
-        semstack_.pop();
         func_type = other;
     } else if (lex_.getName() == "print") {
         get_lex();
@@ -313,10 +312,9 @@ void Syntax_analyzer::multiplicative_expression() {
 void Syntax_analyzer::unary_expression() {
     if (lex_.getName() == "+" || lex_.getName() == "-" ||
         (lex_.getName() == "++" && peek().getType() == identifier || peek().getName() == "++" || peek().getName() ==
-                                                                                                 "--") ||
-        lex_.getName() == "--" && (peek().getType() == identifier || peek().getName() == "++" || peek().
-                getName() ==
-                                                                                                 "--") ||
+         "--") || lex_.getName() == "--" && (peek().getType() == identifier || peek().getName() == "++" || peek().
+                                             getName() ==
+                                             "--") ||
         lex_.getName() == "not") {
         semstack_.push(lex_);
         get_lex();
@@ -486,7 +484,7 @@ void Syntax_analyzer::switch_conditional_statement() {
     }
     get_lex();
     if (lex_.getType() != identifier && lex_.getType() != lexemeType::literal && lex_.getType() != intt && lex_.
-            getType() != floatt && lex_.getType() != charr || lex_.getType() != string) {
+        getType() != floatt && lex_.getType() != charr || lex_.getType() != string) {
         throw lex_;
     }
     lexemeType type;
@@ -595,7 +593,7 @@ std::vector<lexemeType> Syntax_analyzer::function_args() {
     while (peek().getName() != ")") {
         assignment_operator();
         auto lex = semstack_.back();
-        if (lex_.getType() == identifier) {
+        if (lex.getType() == identifier) {
             args.push_back(chc->getType(lex.getName()));
         } else {
             args.push_back(lex.getType());
@@ -609,11 +607,12 @@ std::vector<lexemeType> Syntax_analyzer::function_args() {
     }
     assignment_operator();
     auto lex = semstack_.back();
-    if (lex_.getType() == identifier) {
+    if (lex.getType() == identifier) {
         args.push_back(chc->getType(lex.getName()));
     } else {
         args.push_back(lex.getType());
     }
     semstack_.pop();
+
     return args;
 }

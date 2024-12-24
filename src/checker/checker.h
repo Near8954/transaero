@@ -19,7 +19,7 @@ public:
         clear(cur_);
     }
 
-    bool checkId(std::string &id) {
+    bool checkId(std::string id) {
         return checkIdRec(cur_, id);
     }
 

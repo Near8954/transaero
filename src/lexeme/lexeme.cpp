@@ -7,7 +7,7 @@
 
 lexemeType Lexeme::getType() const { return _type; }
 
-std::string Lexeme::getName() const {
+std::string Lexeme::getName() const{
     return _name;
 }
 

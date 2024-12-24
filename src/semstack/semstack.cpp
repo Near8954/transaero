@@ -12,12 +12,15 @@ void semstack::checkBin() {
     Lexeme lhs = stack.back();
     stack.pop_back();
     if (lhs.getType() == string && rhs.getType() == string) {
-        if (!(op.getName() == "+" || op.getName() == "!=" || op.getName() == "==")) {
+        if (!(op.getName() == "+" || op.getName() == "!=" || op.getName() == "==" || op.getName() == "<" || op.getName()
+              == ">" || op.
+              getName() == "<=" || op.getName() == ">=")) {
             throw Error(
                 "Unsupported operation '" + op.getName() + "' for string type" + " in line " + std::to_string(
                     op.getPos()));
         }
-        if (op.getName() == "==" || op.getName() == "!=") {
+        if (op.getName() == "==" || op.getName() == "!=" || op.getName() == "<" || op.getName() == ">" || op.
+            getName() == "<=" || op.getName() == ">=") {
             stack.emplace_back("result", booll);
         } else {
             stack.emplace_back("result", string);
@@ -103,7 +106,9 @@ void semstack::checkBin() {
             } else if (lhs_type == string && rhs_type == string) {
                 if (op.getName() == "+") {
                     stack.emplace_back("result", string);
-                } else if (op.getName() == "==" || op.getName() == "!=") {
+                } else if (op.getName() == "==" || op.getName() == "!=" || op.getName() == "<" || op.getName() == ">" ||
+                           op.
+                           getName() == "<=" || op.getName() == ">=") {
                     stack.emplace_back("result", booll);
                 } else {
                     throw Error(
@@ -146,6 +151,11 @@ void semstack::checkBin() {
                     " in line " + std::to_string(op.getPos()));
             }
         } else if (lhs_type == string && rhs.getType() == string) {
+            if (op.getName() == "==" || op.getName() == "!=" || op.getName() == "<" || op.getName() == ">" || op.
+                getName() == "<=" || op.getName() == ">=") {
+                stack.emplace_back("result", booll);
+                return;
+            }
             if (!(op.getName() == "=" || op.getName() == "+")) {
                 throw Error(
                     "Unsupported operation '" + op.getName() + "' for string" + " in line " + std::to_string(
@@ -168,7 +178,8 @@ void semstack::checkBin() {
     } else if (lhs.getType() == string && rhs.getType() == identifier && chc_->getType(rhs.getName()) == string) {
         if (op.getName() == "+") {
             stack.emplace_back("result", string);
-        } else if (op.getName() == "==") {
+        } else if (op.getName() == "==" || op.getName() == "!=" || op.getName() == "<" || op.getName() == ">" || op.
+                   getName() == "<=" || op.getName() == ">=") {
             stack.emplace_back("result", booll);
         } else {
             throw Error(
@@ -237,10 +248,11 @@ void semstack::checkUno() {
 
 void semstack::checkBool() {
     if (stack.back().getType() == identifier) {
-        if (chc_->getType(stack.back().getName()) != booll) {
+        if (chc_->getType(stack.back().getName()) != booll && chc_->getType(stack.back().getName()) != intt && chc_->
+            getType(stack.back().getName()) != floatt) {
             throw Error("Expected boolean expression in line " + std::to_string(stack.back().getPos()));
         }
-    } else if (stack.back().getType() != booll) {
+    } else if (stack.back().getType() != booll && stack.back().getType() != intt && stack.back().getType() != floatt) {
         throw Error("Expected boolean expression in line " + std::to_string(stack.back().getPos()));
     }
     stack.pop_back();
